@@ -12,7 +12,7 @@
 
 	<artifactId>clojuredm-core</artifactId>
 	<name>ClojureDM</name>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -54,7 +54,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 

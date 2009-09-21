@@ -14,7 +14,7 @@ public class ClojureModuleClassLoader extends URLClassLoader {
 	public ClojureModuleClassLoader(BundleContext context, Bundle bundle) throws MalformedURLException {
 		super(new URL[] { context.getBundle().getEntry("clojure.jar"),
 				context.getBundle().getEntry("clojure-contrib.jar") }, new BundleClassLoader(context
-				.getBundle(), null));
+				.getBundle()));
 
 		this.bundle = bundle;
 	}
