@@ -1,0 +1,169 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.clojuredm</groupId>
+	<artifactId>product</artifactId>
+	<version>0.0.1</version>
+	<name>Product</name>
+	<packaging>pom</packaging>
+
+	<properties>
+		<osgi.version>4.1.0</osgi.version>
+	</properties>
+
+	<modules>
+		<module>core</module>
+		<module>sampleapp</module>
+		<module>distribution</module>
+	</modules>
+
+	<profiles>
+		<profile>
+			<id>normal</id>
+			<activation>
+				<property>
+					<name>!dev</name>
+				</property>
+			</activation>
+			<modules>
+				<module>poms</module>
+			</modules>
+		</profile>
+		<!--
+			<profile> <id>newVersion</id> <activation> <property> <name>newVersion</name> </property> </activation> <build>
+			<defaultGoal>validate</defaultGoal> <plugins> <plugin> <groupId>org.codehaus.mojo</groupId>
+			<artifactId>exec-maven-plugin</artifactId> <inherited>false</inherited> <executions> <execution>
+			<phase>validate</phase> <goals> <goal>exec</goal> </goals> </execution> </executions> <configuration>
+			<executable>mvn</executable> <arguments> <argument>versions:set</argument>
+			<argument>-DnewVersion=${newVersion}</argument> </arguments> </configuration> </plugin> </plugins> </build>
+			</profile>
+		-->
+	</profiles>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.clojure</groupId>
+				<artifactId>clojure-lang</artifactId>
+				<version>1.1.0-alpha-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.clojure</groupId>
+				<artifactId>clojure-contrib</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.core</artifactId>
+				<version>${osgi.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.compendium</artifactId>
+				<version>${osgi.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.5.6</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.5</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.groovy.maven</groupId>
+				<artifactId>gmaven-plugin</artifactId>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<phase>deploy</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<source>
+								lastDot = project.version.lastIndexOf(".");
+								left = project.version.substring(0, lastDot + 1);
+								right =
+								project.version.substring(lastDot + 1).toInteger() + 1;
+								project.properties.genNewVersion = left + right;
+              				</source>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<phase>deploy</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<executable>mvn</executable>
+					<arguments>
+						<argument>versions:set</argument>
+						<argument>-DnewVersion=${genNewVersion}</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>apache.m2.incubator</id>
+			<name>Apache M2 Incubator Repository</name>
+			<url>http://people.apache.org/repo/m2-incubating-repository/</url>
+		</repository>
+		<repository>
+			<id>scala-tools.org</id>
+			<name>Scala-tools Maven2 Repository</name>
+			<url>http://scala-tools.org/repo-releases</url>
+		</repository>
+		<repository>
+			<id>tapestry.formos.com</id>
+			<name>Formos Software snapshot repository</name>
+			<url>http://tapestry.formos.com/maven-snapshot-repository</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>apache.snapshots</id>
+			<name>snapshot plugins</name>
+			<url>http://people.apache.org/repo/m2-snapshot-repository</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+</project>
