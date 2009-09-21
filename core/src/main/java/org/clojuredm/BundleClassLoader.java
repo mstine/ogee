@@ -6,7 +6,8 @@ public class BundleClassLoader extends ClassLoader {
 
 	private final Bundle bundle;
 
-	public BundleClassLoader(Bundle bundle) {
+	public BundleClassLoader(Bundle bundle, ClassLoader parent) {
+		super(parent);
 		this.bundle = bundle;
 	}
 

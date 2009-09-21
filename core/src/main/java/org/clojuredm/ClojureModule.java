@@ -31,7 +31,6 @@ public class ClojureModule {
 		Object mainModuleStart = RT_var.invoke(null, mainModule, "start");
 		Method mainModuleStart_invoke = mainModuleStart.getClass().getMethod("invoke", Object.class);
 		mainModuleStart_invoke.invoke(mainModuleStart, "YEAHHHHHH");
-
 	}
 
 }
