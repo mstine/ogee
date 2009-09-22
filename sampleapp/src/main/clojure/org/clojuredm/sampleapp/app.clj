@@ -1,16 +1,16 @@
-(ns org.clojuredm.sampleapp.app)
+(ns org.clojuredm.sampleapp.app
+	(:use clojuredm.osgi))
  
+(def context (atom nil))
  
 (defn hello []
 	(println "HELLO"))
  
- 
-(defn start [c]
-  (println "starting clojure bundle" c)
-  (org.clojuredm.osgi/registerService c "java.util.Map" {:hello hello})
+(defn start [_]
+  (println "starting clojure bundle")
+;  (service-export context {:hello hello})
   )
 
-(defn stop [c]
-  (println "stopping clojure bundle" c))
-
+(defn stop [_]
+  (println "stopping clojure bundle"))
 

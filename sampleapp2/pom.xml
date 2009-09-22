@@ -30,7 +30,7 @@
 					<archive>
 						<manifestEntries>
 							<Bundle-SymbolicName>org.clojuredm.sampleapp2</Bundle-SymbolicName>
-							<Clojure-Module>org.clojuredm.sampleapp.app</Clojure-Module>
+							<Clojure-Module>org.clojuredm.sampleapp2.app</Clojure-Module>
 						</manifestEntries>
 					</archive>
 				</configuration>
