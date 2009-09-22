@@ -27,6 +27,11 @@
 			<artifactId>clojuredm-sampleapp</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>clojuredm-sampleapp2</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 	</dependencies>
 

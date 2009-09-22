@@ -16,6 +16,7 @@
 	<modules>
 		<module>core</module>
 		<module>sampleapp</module>
+		<module>sampleapp2</module>
 		<module>distribution</module>
 	</modules>
 

@@ -13,6 +13,14 @@
 	<artifactId>clojuredm-sampleapp</artifactId>
 	<name>Sample App</name>
 
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>clojuredm-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>

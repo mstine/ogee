@@ -1,5 +1,6 @@
 package org.clojuredm;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,14 +12,15 @@ import org.osgi.framework.SynchronousBundleListener;
 public class ClojureModuleBundleTracker implements SynchronousBundleListener {
 
 	private final BundleContext context;
-	private final Map<Bundle, ClojureModule> trackedBundles = new HashMap<Bundle, ClojureModule>();
+	private final Map<Bundle, ClojureModule> trackedBundles = Collections
+			.synchronizedMap(new HashMap<Bundle, ClojureModule>());
 
 	public ClojureModuleBundleTracker(BundleContext context) {
 		this.context = context;
 	}
 
 	public void checkAllInstalledBundles() {
-		for (Bundle b: context.getBundles())
+		for (Bundle b : context.getBundles())
 			analyseNewBundle(b);
 	}
 
@@ -28,17 +30,17 @@ public class ClojureModuleBundleTracker implements SynchronousBundleListener {
 		else if (event.getType() == BundleEvent.STARTED)
 			analyseNewBundle(event.getBundle());
 	}
-	
+
 	private void analyseNewBundle(Bundle b) {
 		if (b.getState() != Bundle.ACTIVE)
 			return;
-		
+
 		if (trackedBundles.containsKey(b))
 			return;
-		
+
 		if (b.getBundleContext() == null)
 			return;
-		
+
 		Object cmHeader = b.getHeaders().get("Clojure-Module");
 		if (cmHeader != null)
 			createClojureModule(b, (String) cmHeader);
@@ -50,8 +52,8 @@ public class ClojureModuleBundleTracker implements SynchronousBundleListener {
 			trackedBundles.remove(b);
 		}
 	}
-	
-	private void createClojureModule(Bundle bundle, String mainModule) {
+
+	private void createClojureModule(final Bundle bundle, final String mainModule) {
 		try {
 			ClojureModule module = new ClojureModule(context, bundle, mainModule);
 			module.start();

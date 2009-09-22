@@ -12,7 +12,7 @@
 
 	<artifactId>clojuredm-core</artifactId>
 	<name>ClojureDM</name>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -38,6 +38,8 @@
 						</goals>
 						<configuration>
 							<artifactItems>
+								<!--
+								-->
 								<artifactItem>
 									<groupId>org.clojure</groupId>
 									<artifactId>clojure-lang</artifactId>
