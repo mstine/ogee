@@ -4,7 +4,7 @@
 (def context (atom nil))
  
 (defn start [_]
-  ((:hello (service-import @context "(:vendor=Roman)"))))
+  ((:hello (service-import @context :app1service))))
 
 (defn stop [_])
 

@@ -4,7 +4,7 @@
 (def context (atom nil))
  
 (defn start [_]
-  (service-export @context {:hello #(println "Hello from sample1!")} {:vendor "Roman"}))
+  (service-export @context :app1service {:hello #(println "Hello from sample1!")}))
 
 (defn stop [_])
 
