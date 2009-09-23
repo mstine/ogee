@@ -8,7 +8,7 @@
  
 (defn start [_]
   (println "starting clojure bundle")
-;  (service-export context {:hello hello})
+  ;(service-export context {:hello hello})
   )
 
 (defn stop [_]
