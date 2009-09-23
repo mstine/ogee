@@ -5,7 +5,7 @@
 
 	<groupId>org.ogee</groupId>
 	<artifactId>product</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>Product</name>
 	<packaging>pom</packaging>
 
