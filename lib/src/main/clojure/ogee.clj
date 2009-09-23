@@ -4,12 +4,12 @@
 					 (org.osgi.framework BundleContext)))
 	
 (defn init-module
+	"Initializes a module. The atom name-ns/name-var will be set to the BundleContext, if present."
 	[name-ns name-var context]
-	(let [atm ((ns-interns (symbol name-ns)) (symbol name-var))]
-		(if (not= atm nil)
-			(reset! (deref atm) context))))
+	(let [context-atom ((ns-interns (symbol name-ns)) (symbol name-var))]
+		(if (not= context-atom nil) (reset! @context-atom context))))
 	
-(defn map-to-dictionary
+(defn map-to-hashtable
 	[inmap]
 	(let [table (java.util.Hashtable.)]
 		(doseq [k (keys inmap)] (.put table k (get inmap k)))
@@ -34,6 +34,6 @@
 		
 (defn service-export 
 	[context id service]
-		(.registerService context (.getName java.util.Map) service (map-to-dictionary {"ogee.service.id" (str id)})))
+		(.registerService context (.getName java.util.Map) service (map-to-hashtable {"ogee.service.id" (str id)})))
 	
 
