@@ -32,7 +32,7 @@
 		tracker))
 		
 (defn service-import
-	"Returns a proxy to service that matches the id."
+	"Returns a proxy to the service with matching id."
 	[context id]
 	(let [ldap (str "(ogee.service.id=" (str id) ")")
 				tracker (service-tracker context java.util.Map ldap)]
