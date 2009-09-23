@@ -4,19 +4,19 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.clojuredm</groupId>
-		<artifactId>clojuredm-poms-clojure</artifactId>
+		<groupId>org.ogee</groupId>
+		<artifactId>ogee-poms-clojure</artifactId>
 		<version>0.0.1</version>
 		<relativePath>../poms/clojure</relativePath>
 	</parent>
 
-	<artifactId>clojuredm-sampleapp2</artifactId>
+	<artifactId>ogee-sampleapp2</artifactId>
 	<name>Sample App2</name>
 
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>clojuredm-core</artifactId>
+			<artifactId>ogee-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
@@ -29,8 +29,8 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Bundle-SymbolicName>org.clojuredm.sampleapp2</Bundle-SymbolicName>
-							<Clojure-Module>org.clojuredm.sampleapp2.app</Clojure-Module>
+							<Bundle-SymbolicName>org.ogee.sampleapp2</Bundle-SymbolicName>
+							<Clojure-Module>org.ogee.sampleapp2.app</Clojure-Module>
 						</manifestEntries>
 					</archive>
 				</configuration>

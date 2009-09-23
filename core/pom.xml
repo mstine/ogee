@@ -4,14 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.clojuredm</groupId>
-		<artifactId>clojuredm-poms-java</artifactId>
+		<groupId>org.ogee</groupId>
+		<artifactId>ogee-poms-java</artifactId>
 		<version>0.0.1</version>
 		<relativePath>../poms/java</relativePath>
 	</parent>
 
-	<artifactId>clojuredm-core</artifactId>
-	<name>ClojureDM</name>
+	<artifactId>ogee-core</artifactId>
+	<name>Ogee</name>
 
 	<dependencies>
 		<dependency>
@@ -27,10 +27,10 @@
 				<artifactId>maven-bundle-plugin</artifactId>
 				<configuration>
 					<instructions>
-						<Bundle-Activator>org.clojuredm.Activator</Bundle-Activator>
+						<Bundle-Activator>org.ogee.Activator</Bundle-Activator>
 						<Export-Package>
-							org.clojuredm.*;version=${project.version},
-							clojuredm.*;version=${project.version}
+							org.ogee.*;version=${project.version},
+							ogee.*;version=${project.version}
 						</Export-Package>
 						<Import-Package>
 							!clojure.lang,

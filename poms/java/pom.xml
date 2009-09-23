@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.clojuredm</groupId>
-		<artifactId>clojuredm-poms</artifactId>
+		<groupId>org.ogee</groupId>
+		<artifactId>ogee-poms</artifactId>
 		<version>0.0.1</version>
 	</parent>
 
-	<artifactId>clojuredm-poms-java</artifactId>
+	<artifactId>ogee-poms-java</artifactId>
 	<name>POM Java Bundle</name>
 	<packaging>pom</packaging>
 
@@ -99,7 +99,7 @@
 				<dependencies>
 					<dependency>
 						<groupId>${project.groupId}</groupId>
-						<artifactId>clojuredm-poms-shared</artifactId>
+						<artifactId>ogee-poms-shared</artifactId>
 						<version>${project.version}</version>
 					</dependency>
 				</dependencies>

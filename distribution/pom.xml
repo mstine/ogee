@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.clojuredm</groupId>
+		<groupId>org.ogee</groupId>
 		<artifactId>product</artifactId>
 		<version>0.0.1</version>
 	</parent>
 
-	<artifactId>clojuredm-distribution</artifactId>
+	<artifactId>ogee-distribution</artifactId>
 	<name>Distribution</name>
 	<packaging>pom</packaging>
 
@@ -18,18 +18,18 @@
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>clojuredm-core</artifactId>
+			<artifactId>ogee-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>clojuredm-sampleapp</artifactId>
+			<artifactId>ogee-sampleapp</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>clojuredm-sampleapp2</artifactId>
+			<artifactId>ogee-sampleapp2</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 

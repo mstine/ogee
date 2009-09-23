@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.clojuredm</groupId>
-		<artifactId>clojuredm-poms-java</artifactId>
+		<groupId>org.ogee</groupId>
+		<artifactId>ogee-poms-java</artifactId>
 		<version>0.0.1</version>
 		<relativePath>../java</relativePath>
 	</parent>
 
-	<artifactId>clojuredm-poms-clojure</artifactId>
+	<artifactId>ogee-poms-clojure</artifactId>
 	<name>POM Clojure</name>
 	<packaging>pom</packaging>
 
