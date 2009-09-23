@@ -16,7 +16,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-core</artifactId>
+			<artifactId>ogee-lib</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
@@ -29,6 +29,7 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
+							<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
 							<Bundle-SymbolicName>org.ogee.sampleapp</Bundle-SymbolicName>
 							<Clojure-Module>org.ogee.sampleapp.app</Clojure-Module>
 						</manifestEntries>

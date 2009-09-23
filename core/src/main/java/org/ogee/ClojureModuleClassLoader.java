@@ -9,8 +9,6 @@ import org.osgi.framework.BundleContext;
 
 public class ClojureModuleClassLoader extends ClassLoader {
 
-	private BundleContext context;
-
 	private final Bundle bundle;
 
 	public static ClassLoader SHARED_CLOJURE_CL = null;
@@ -19,11 +17,12 @@ public class ClojureModuleClassLoader extends ClassLoader {
 		synchronized (ClojureModuleClassLoader.class) {
 			if (SHARED_CLOJURE_CL == null) {
 				SHARED_CLOJURE_CL = new URLClassLoader(new URL[] {
-						context.getBundle().getEntry("clojure.jar"),
-						context.getBundle().getEntry("clojure-contrib.jar") });
+						(URL) context.getBundle().findEntries("ogee-lib", "*.jar", false).nextElement(),
+						context.getBundle().getEntry("clojure-contrib.jar"),
+						context.getBundle().getEntry("clojure.jar"), }, new BundleClassLoader(context
+						.getBundle()));
 			}
 		}
-		this.context = context;
 		this.bundle = bundle;
 	}
 
@@ -44,13 +43,8 @@ public class ClojureModuleClassLoader extends ClassLoader {
 		URL entry = bundle.getResource(path + ext);
 		if (entry != null)
 			return entry;
-		else {
-			entry = context.getBundle().getResource(path + ext);
-			if (entry != null)
-				return entry;
-			else
-				return SHARED_CLOJURE_CL.getResource(name);
-		}
+		else
+			return SHARED_CLOJURE_CL.getResource(name);
 	}
 
 }

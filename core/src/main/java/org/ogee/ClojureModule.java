@@ -34,12 +34,12 @@ public class ClojureModule {
 
 		RT = classLoader.loadClass("clojure.lang.RT");
 		Method RT_load = RT.getMethod("load", String.class);
-		RT_load.invoke(null, "ogee.osgi");
+		RT_load.invoke(null, "ogee");
 		RT_load.invoke(null, mainModule);
 
 		RT_var = RT.getMethod("var", String.class, String.class);
 
-		Object initModule = RT_var.invoke(null, "ogee.osgi", "init-module");
+		Object initModule = RT_var.invoke(null, "ogee", "init-module");
 		Method initModuleInvoke = initModule.getClass().getMethod("invoke", Object.class, Object.class,
 				Object.class);
 		initModuleInvoke.invoke(initModule, mainModule, "context", bundle.getBundleContext());

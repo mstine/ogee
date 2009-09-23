@@ -1,16 +1,10 @@
 (ns org.ogee.sampleapp.app
-	(:use ogee.osgi))
+	(:use ogee))
  
 (def context (atom nil))
  
-(defn hello []
-	(println "HELLO"))
- 
 (defn start [_]
-  (println "starting clojure bundle")
-  ;(service-export context {:hello hello})
-  )
+  (service-export @context {:hello #(println "Hello from sample1!")} {:vendor "Roman"}))
 
-(defn stop [_]
-  (println "stopping clojure bundle"))
+(defn stop [_])
 
