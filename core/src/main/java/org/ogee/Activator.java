@@ -6,7 +6,8 @@ import org.osgi.framework.BundleContext;
 public class Activator implements BundleActivator {
 
 	public void start(BundleContext context) throws Exception {
-		ClojureModuleBundleTracker tracker = new ClojureModuleBundleTracker(context);
+		ClojureRuntime clojureRuntime = new ClojureRuntime(context);
+		ClojureModuleBundleTracker tracker = new ClojureModuleBundleTracker(clojureRuntime, context);
 		context.addBundleListener(tracker);
 		tracker.checkAllInstalledBundles();
 	}

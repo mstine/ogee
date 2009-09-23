@@ -14,8 +14,10 @@ public class ClojureModuleBundleTracker implements SynchronousBundleListener {
 	private final BundleContext context;
 	private final Map<Bundle, ClojureModule> trackedBundles = Collections
 			.synchronizedMap(new HashMap<Bundle, ClojureModule>());
+	private final ClojureRuntime clojureRuntime;
 
-	public ClojureModuleBundleTracker(BundleContext context) {
+	public ClojureModuleBundleTracker(ClojureRuntime clojureRuntime, BundleContext context) {
+		this.clojureRuntime = clojureRuntime;
 		this.context = context;
 	}
 
@@ -55,7 +57,7 @@ public class ClojureModuleBundleTracker implements SynchronousBundleListener {
 
 	private void createClojureModule(final Bundle bundle, final String mainModule) {
 		try {
-			ClojureModule module = new ClojureModule(context, bundle, mainModule);
+			ClojureModule module = new ClojureModule(clojureRuntime, bundle, mainModule);
 			module.start();
 			trackedBundles.put(bundle, module);
 		} catch (Exception e) {
