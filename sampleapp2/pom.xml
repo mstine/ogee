@@ -36,6 +36,7 @@
 						<manifestEntries>
 							<Bundle-SymbolicName>org.ogee.sampleapp2</Bundle-SymbolicName>
 							<Clojure-Module>org.ogee.sampleapp2.app</Clojure-Module>
+							<Bundle-Version>1</Bundle-Version>
 						</manifestEntries>
 					</archive>
 				</configuration>
