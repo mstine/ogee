@@ -12,7 +12,7 @@ import clojure.lang.Var;
 public class ClojureRuntime {
 
 	private final BundleContext context;
-	private URLClassLoader classLoader;
+	private ModuleChainClassLoader chain;
 
 	public ClojureRuntime(BundleContext context) throws Exception {
 		this.context = context;
@@ -20,19 +20,30 @@ public class ClojureRuntime {
 	}
 
 	public void init() throws Exception {
-		classLoader = new URLClassLoader(new URL[] { (URL) context.getBundle().findEntries("ogee-lib",
-				"*.jar", false).nextElement() }, new BundleClassLoader(context.getBundle()));
+		ClassLoader withLib = new URLClassLoader(new URL[] { (URL) context.getBundle().findEntries(
+				"ogee-lib", "*.jar", false).nextElement() }, new BundleClassLoader(context.getBundle()));
 
-		Thread.currentThread().setContextClassLoader(classLoader);
+		chain = new ModuleChainClassLoader(withLib);
+
+		setThreadContextClassLoader();
 		loadModule("ogee");
+		RT.var("ogee", "init-ogee").invoke();
+	}
+
+	public void setThreadContextClassLoader() {
+		Thread.currentThread().setContextClassLoader(chain);
 	}
 
 	public void loadModule(String name) throws Exception {
 		clojure.lang.RT.load(name);
 	}
 
-	public ClassLoader getClojureClassLoader() {
-		return classLoader;
+	public void addBundleToClassLoader(Bundle bundle) {
+		chain.addBundle(bundle);
+	}
+
+	public void removeBundleFromClassLoader(Bundle bundle) {
+		chain.removeBundle(bundle);
 	}
 
 	public void initClojureModule(Bundle bundle, String mainModule) throws Exception {

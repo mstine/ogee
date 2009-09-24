@@ -22,8 +22,9 @@ public class ClojureModule {
 	}
 
 	private void init() throws Exception {
-		ClojureModuleClassLoader cmcl = new ClojureModuleClassLoader(clojureRuntime, bundle);
-		Thread.currentThread().setContextClassLoader(cmcl);
+		clojureRuntime.setThreadContextClassLoader();
+		clojureRuntime.addBundleToClassLoader(bundle);
+		
 		clojureRuntime.loadModule(mainModule);
 		clojureRuntime.initClojureModule(bundle, mainModule);
 		mainModuleStart = RT.var(mainModule, "start");

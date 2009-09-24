@@ -4,6 +4,10 @@
 					 (org.osgi.framework BundleContext)))
 					 
 (def exported-services (ref {}))
+
+(defn init-ogee
+	[]
+	(println "Ogee started."))
 	
 (defn init-module
 	"Initializes a module. The atom name-ns/name-var will be set to the BundleContext, if present."
