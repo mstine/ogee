@@ -16,7 +16,6 @@ public class ClojureRuntime {
 
 	public ClojureRuntime(BundleContext context) throws Exception {
 		this.context = context;
-		init();
 	}
 
 	public void init() throws Exception {
@@ -27,9 +26,13 @@ public class ClojureRuntime {
 
 		setThreadContextClassLoader();
 		loadModule("ogee");
-		RT.var("ogee", "init-ogee").invoke();
+		RT.var("ogee", "ogee-start").invoke();
 	}
 
+	public void destroy() throws Exception {
+		RT.var("ogee", "ogee-stop").invoke();
+	}
+	
 	public void setThreadContextClassLoader() {
 		Thread.currentThread().setContextClassLoader(chain);
 	}
@@ -47,7 +50,7 @@ public class ClojureRuntime {
 	}
 
 	public void initClojureModule(Bundle bundle, String mainModule) throws Exception {
-		Var initModule = RT.var("ogee", "init-module");
+		Var initModule = RT.var("ogee", "module-start");
 		initModule.invoke(mainModule, "context", bundle.getBundleContext());
 	}
 

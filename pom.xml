@@ -22,6 +22,19 @@
 		<module>distribution</module>
 	</modules>
 
+	<scm>
+		<connection>scm:git:git://github.com/jboner/akka.git</connection>
+		<developerConnection>scm:git:git@github.com:jboner/akka.git</developerConnection>
+		<url>http://github.com/jboner/akka</url>
+	</scm>
+
+	<licenses>
+		<license>
+			<name>the Apache License, ASL Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
 	<profiles>
 		<profile>
 			<id>normal</id>

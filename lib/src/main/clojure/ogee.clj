@@ -1,17 +1,27 @@
 (ns ogee
+	(:use clojure.contrib.seq-utils)
 	(:import (java.lang.reflect InvocationHandler Proxy)
 					 (org.osgi.util.tracker ServiceTracker)
 					 (org.osgi.framework BundleContext)))
 					 
-(def exported-services (ref {}))
+(def modules (ref {}))
 
-(defn init-ogee [] )
-	
-(defn init-module
+(defn ogee-start [] (println "Ogee started."))
+
+(defn ogee-stop []
+	(let [allregs (flatten (map deref (map :exported-services (vals @modules))))]
+		(doseq [reg allregs] (.unregister reg))))
+
+(defn- init-module
 	"Initializes a module. The atom name-ns/name-var will be set to the BundleContext, if present."
 	[name-ns name-var context]
 	(let [context-atom ((ns-interns (symbol name-ns)) (symbol name-var))]
 		(if (not= context-atom nil) (reset! @context-atom context))))
+	
+(defn module-start
+	[name-ns name-var context]
+	(init-module name-ns name-var context)
+	(dosync (ref-set modules (assoc @modules context {:exported-services (ref [])}))))
 	
 (defn- map-to-hashtable
 	"Convert a map to a hashtable."
@@ -43,14 +53,12 @@
 		(aop-proxy java.util.Map (fn [obj mth args] (.invoke mth (.getService tracker) args)))))
 		
 (defn smap-export
-	"Exports service map with name."
+	"Exports service map 'service' with name 'sname'."
 	[context sname service]
-		(let [reference (.registerService context (.getName java.util.Map)
-																							service
-																							(map-to-hashtable {"ogee.service.name" (str sname)}))]
-; TODO																							
-			(dosync
-				(ref-set exported-services (merge @exported-services {context ()})) 
-				)))
+	(let [reference (.registerService context (.getName java.util.Map)
+	 																					 service
+																						 (map-to-hashtable {"ogee.service.name" (str sname)}))]
+		(dosync
+			(let [ref-es (:exported-services (get @modules context))]
+				(ref-set ref-es (conj @ref-es reference))))))
 	
-
