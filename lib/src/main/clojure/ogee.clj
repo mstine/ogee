@@ -9,6 +9,7 @@
 (defn ogee-start [] (println "Ogee started."))
 
 (defn ogee-stop []
+	"Shutdown the Ogee runtime."
 	(let [allregs (flatten (map deref (map :exported-services (vals @modules))))]
 		(doseq [reg allregs] (.unregister reg))))
 
@@ -19,6 +20,7 @@
 		(if (not= context-atom nil) (reset! @context-atom context))))
 	
 (defn module-start
+	"Activate the clojure module. name-ns/name-var specify the var where the BundleContext should be injected."
 	[name-ns name-var context]
 	(init-module name-ns name-var context)
 	(dosync (ref-set modules (assoc @modules context {:exported-services (ref [])}))))
