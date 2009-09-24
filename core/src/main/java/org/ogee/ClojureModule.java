@@ -1,8 +1,9 @@
 package org.ogee;
 
-import java.lang.reflect.Method;
-
 import org.osgi.framework.Bundle;
+
+import clojure.lang.RT;
+import clojure.lang.Var;
 
 public class ClojureModule {
 
@@ -10,11 +11,8 @@ public class ClojureModule {
 	private final Bundle bundle;
 	private final String mainModule;
 
-	private Object mainModuleStart;
-	private Method mainModuleStartInvoke;
-
-	private Object mainModuleStop;
-	private Method mainModuleStopInvoke;
+	private Var mainModuleStart;
+	private Var mainModuleStop;
 
 	public ClojureModule(ClojureRuntime clojureRuntime, Bundle bundle, String mainModule) throws Exception {
 		this.clojureRuntime = clojureRuntime;
@@ -28,17 +26,13 @@ public class ClojureModule {
 		Thread.currentThread().setContextClassLoader(cmcl);
 		clojureRuntime.loadModule(mainModule);
 		clojureRuntime.initClojureModule(bundle, mainModule);
-
-		mainModuleStart = clojureRuntime.getRT_var().invoke(null, mainModule, "start");
-		mainModuleStartInvoke = mainModuleStart.getClass().getMethod("invoke", Object.class);
-
-		mainModuleStop = clojureRuntime.getRT_var().invoke(null, mainModule, "stop");
-		mainModuleStopInvoke = mainModuleStop.getClass().getMethod("invoke", Object.class);
+		mainModuleStart = RT.var(mainModule, "start");
+		mainModuleStop = RT.var(mainModule, "stop");
 	}
 
 	public void start() {
 		try {
-			mainModuleStartInvoke.invoke(mainModuleStart, bundle.getBundleContext());
+			mainModuleStart.invoke(bundle.getBundleContext());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -46,7 +40,7 @@ public class ClojureModule {
 
 	public void stop() {
 		try {
-			mainModuleStopInvoke.invoke(mainModuleStop, bundle.getBundleContext());
+			mainModuleStop.invoke(bundle.getBundleContext());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

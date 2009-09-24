@@ -19,6 +19,14 @@
 			<artifactId>ogee-lib</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.clojure</groupId>
+			<artifactId>clojure-lang</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.clojure</groupId>
+			<artifactId>clojure-contrib</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -29,39 +37,15 @@
 				<configuration>
 					<instructions>
 						<Bundle-Activator>org.ogee.Activator</Bundle-Activator>
-						<Export-Package>org.ogee.*;version=${project.version}</Export-Package>
+						<Export-Package>
+							org.ogee.*;version=${project.version},
+							clojure.*;version="1.0.1"
+						</Export-Package>
+						<_nouses>true</_nouses>
 						<Include-Resource>target/libs</Include-Resource>
 						<DynamicImport-Package>*</DynamicImport-Package>
 					</instructions>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-clojure</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.clojure</groupId>
-									<artifactId>clojure-lang</artifactId>
-									<destFileName>clojure.jar</destFileName>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.clojure</groupId>
-									<artifactId>clojure-contrib</artifactId>
-									<destFileName>clojure-contrib.jar</destFileName>
-								</artifactItem>
-							</artifactItems>
-							<outputDirectory>${project.build.directory}/libs</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

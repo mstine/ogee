@@ -8,3 +8,4 @@
 
 (defn stop [_])
 
+(defn hello [] (println "Hello"))
