@@ -18,6 +18,7 @@
 		<module>core</module>
 		<module>sampleapp</module>
 		<module>sampleapp2</module>
+		<module>sampleapp3java</module>
 		<module>distribution</module>
 	</modules>
 

@@ -39,17 +39,17 @@
 		
 (defn service-import
 	"Returns a proxy to the service with matching id."
-	[context id]
-	(let [ldap (str "(ogee.service.id=" (str id) ")")
+	[context sname]
+	(let [ldap (str "(ogee.service.name=" (str sname) ")")
 				tracker (service-tracker context java.util.Map ldap)]
 		(aop-proxy java.util.Map (fn [obj mth args] (.invoke mth (.getService tracker) args)))))
 		
 (defn service-export
 	"Exports service with id. Service is supposed to be a map."
-	[context id service]
+	[context sname service]
 		(let [reference (.registerService context (.getName java.util.Map)
 																							service
-																							(map-to-hashtable {"ogee.service.id" (str id)}))]
+																							(map-to-hashtable {"ogee.service.name" (str sname)}))]
 ; TODO																							
 			(dosync
 				(ref-set exported-services (merge @exported-services {context ()})) 
