@@ -5,9 +5,7 @@
 					 
 (def exported-services (ref {}))
 
-(defn init-ogee
-	[]
-	(println "Ogee started."))
+(defn init-ogee [] )
 	
 (defn init-module
 	"Initializes a module. The atom name-ns/name-var will be set to the BundleContext, if present."
@@ -37,15 +35,15 @@
 		(.open tracker)
 		tracker))
 		
-(defn service-import
-	"Returns a proxy to the service with matching id."
+(defn smap-import
+	"Returns a proxy to the service map with a matching name."
 	[context sname]
 	(let [ldap (str "(ogee.service.name=" (str sname) ")")
 				tracker (service-tracker context java.util.Map ldap)]
 		(aop-proxy java.util.Map (fn [obj mth args] (.invoke mth (.getService tracker) args)))))
 		
-(defn service-export
-	"Exports service with id. Service is supposed to be a map."
+(defn smap-export
+	"Exports service map with name."
 	[context sname service]
 		(let [reference (.registerService context (.getName java.util.Map)
 																							service
