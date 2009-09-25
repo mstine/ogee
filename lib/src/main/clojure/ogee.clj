@@ -23,7 +23,7 @@
 	"Activate the clojure module. name-ns/name-var specify the var where the BundleContext should be injected."
 	[name-ns name-var context]
 	(init-module name-ns name-var context)
-	(dosync (ref-set modules (assoc @modules context {:exported-services (ref [])}))))
+	(dosync (alter modules assoc context {:exported-services (ref [])})))
 	
 (defn- map-to-hashtable
 	"Convert a map to a hashtable."
@@ -62,5 +62,5 @@
 																						 (map-to-hashtable {"ogee.service.name" (str sname)}))]
 		(dosync
 			(let [ref-es (:exported-services (get @modules context))]
-				(ref-set ref-es (conj @ref-es reference))))))
-	
+				(alter ref-es conj reference)))))
+
