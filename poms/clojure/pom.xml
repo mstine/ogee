@@ -53,11 +53,12 @@
 				<artifactId>clojure-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>clojure-compile</id>
 						<goals>
 							<goal>compile</goal>
+							<goal>test</goal>
 						</goals>
 						<configuration>
+                            <testScript>src/test/clojure/tests.clj</testScript>
 							<sourceDirectories>
 								<sourceDirectory>src/main/clojure</sourceDirectory>
 							</sourceDirectories>

@@ -6,3 +6,4 @@ target
 .launch
 .externalToolBuilders
 *.versionsBackup
+*.swp
