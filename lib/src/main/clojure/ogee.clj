@@ -55,12 +55,16 @@
 		(aop-proxy java.util.Map (fn [obj mth args] (.invoke mth (.getService tracker) args)))))
 		
 (defn smap-export
-	"Exports service map 'service' with name 'sname'."
-	[context sname service]
-	(let [reference (.registerService context (.getName java.util.Map)
-	 																					 service
-																						 (map-to-hashtable {"ogee.service.name" (str sname)}))]
-		(dosync
-			(let [ref-es (:exported-services (get @modules context))]
-				(alter ref-es conj reference)))))
+  "Exports service map 'service' with name 'sname'."
+  [context sname service]
+  (let [reference (.registerService context
+                                    (.getName java.util.Map)
+                                    service
+                                    (map-to-hashtable {"ogee.service.name" (str sname)}))]
+    (dosync
+      (let [ref-es (:exported-services (get @modules context))]
+        (alter ref-es conj reference)))))
+
+
+
 
