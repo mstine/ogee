@@ -6,7 +6,8 @@
 					 
 (def modules (ref {}))
 
-(defn ogee-start [] (println "Ogee started."))
+(defn ogee-start []
+  (println "Ogee started."))
 
 (defn ogee-stop []
 	"Shutdown the Ogee runtime."
@@ -23,7 +24,7 @@
 	"Activate the clojure module. name-ns/name-var specify the var where the BundleContext should be injected."
 	[name-ns name-var context]
 	(init-module name-ns name-var context)
-	(dosync (ref-set modules (assoc @modules context {:exported-services (ref [])}))))
+	(dosync (alter modules assoc context {:exported-services (ref [])})))
 	
 (defn- map-to-hashtable
 	"Convert a map to a hashtable."
@@ -48,19 +49,23 @@
 		tracker))
 		
 (defn smap-import
-	"Returns a proxy to the service map with a matching name."
-	[context sname]
-	(let [ldap (str "(ogee.service.name=" (str sname) ")")
-				tracker (service-tracker context java.util.Map ldap)]
-		(aop-proxy java.util.Map (fn [obj mth args] (.invoke mth (.getService tracker) args)))))
+  "Returns a proxy to the service map with a matching name."
+  [context sname]
+  (let [ldap (str "(ogee.service.name=" (str sname) ")")
+        tracker (service-tracker context java.util.Map ldap)]
+    (aop-proxy java.util.Map (fn [obj mth args] (.invoke mth (.getService tracker) args)))))
 		
 (defn smap-export
-	"Exports service map 'service' with name 'sname'."
-	[context sname service]
-	(let [reference (.registerService context (.getName java.util.Map)
-	 																					 service
-																						 (map-to-hashtable {"ogee.service.name" (str sname)}))]
-		(dosync
-			(let [ref-es (:exported-services (get @modules context))]
-				(ref-set ref-es (conj @ref-es reference))))))
-	
+  "Exports service map 'service' with name 'sname'."
+  [context sname service]
+  (let [reference (.registerService context
+                                    (.getName java.util.Map)
+                                    service
+                                    (map-to-hashtable {"ogee.service.name" (str sname)}))]
+    (dosync
+      (let [ref-es (:exported-services (get @modules context))]
+        (alter ref-es conj reference)))))
+
+
+
+
