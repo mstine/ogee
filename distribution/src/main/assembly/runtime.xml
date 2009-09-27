@@ -21,5 +21,12 @@
 			<useProjectArtifact>false</useProjectArtifact>
 			<useProjectAttachments>false</useProjectAttachments>
 		</dependencySet>
+		<dependencySet>
+			<outputDirectory>.</outputDirectory>
+			<scope>provided</scope>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<useProjectArtifact>false</useProjectArtifact>
+			<useProjectAttachments>false</useProjectAttachments>
+		</dependencySet>
 	</dependencySets>
 </assembly>
