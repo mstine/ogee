@@ -6,7 +6,8 @@
 					 
 (def modules (ref {}))
 
-(defn ogee-start [] (println "Ogee started."))
+(defn ogee-start []
+  (println "Ogee started."))
 
 (defn ogee-stop []
 	"Shutdown the Ogee runtime."
@@ -48,11 +49,11 @@
 		tracker))
 		
 (defn smap-import
-	"Returns a proxy to the service map with a matching name."
-	[context sname]
-	(let [ldap (str "(ogee.service.name=" (str sname) ")")
-				tracker (service-tracker context java.util.Map ldap)]
-		(aop-proxy java.util.Map (fn [obj mth args] (.invoke mth (.getService tracker) args)))))
+  "Returns a proxy to the service map with a matching name."
+  [context sname]
+  (let [ldap (str "(ogee.service.name=" (str sname) ")")
+        tracker (service-tracker context java.util.Map ldap)]
+    (aop-proxy java.util.Map (fn [obj mth args] (.invoke mth (.getService tracker) args)))))
 		
 (defn smap-export
   "Exports service map 'service' with name 'sname'."
