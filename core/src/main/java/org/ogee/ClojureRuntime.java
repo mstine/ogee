@@ -1,11 +1,13 @@
 package org.ogee;
 
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
+import clojure.lang.DynamicClassLoader;
 import clojure.lang.RT;
 import clojure.lang.Var;
 
@@ -24,7 +26,9 @@ public class ClojureRuntime {
 
 		chain = new ModuleChainClassLoader(withLib);
 
+		clojure.lang.Compiler.LOADER.bindRoot(new DynamicClassLoader(chain));
 		setThreadContextClassLoader();
+		
 		loadModule("ogee");
 		RT.var("ogee", "ogee-start").invoke();
 	}
@@ -38,7 +42,11 @@ public class ClojureRuntime {
 	}
 
 	public void loadModule(String name) throws Exception {
-		clojure.lang.RT.load(name);
+		Method baseLoader = RT.class.getMethod("baseLoader");
+		baseLoader.setAccessible(true);
+		System.out.println("BASELOADER:" + baseLoader.invoke(null));
+		
+		RT.load(name);
 	}
 
 	public void addBundleToClassLoader(Bundle bundle) {

@@ -22,7 +22,7 @@ public class ClojureModule {
 	}
 
 	private void init() throws Exception {
-		clojureRuntime.setThreadContextClassLoader();
+//		clojureRuntime.setThreadContextClassLoader();
 		clojureRuntime.addBundleToClassLoader(bundle);
 		
 		clojureRuntime.loadModule(mainModule);
