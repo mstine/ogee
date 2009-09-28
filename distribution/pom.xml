@@ -6,7 +6,7 @@
 
 	<parent>
 		<groupId>org.ogee</groupId>
-		<artifactId>product</artifactId>
+		<artifactId>ogee</artifactId>
 		<version>0.0.2</version>
 	</parent>
 
@@ -31,6 +31,12 @@
 		<dependency>
 			<groupId>org.ops4j.pax.logging</groupId>
 			<artifactId>pax-logging-service</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
