@@ -15,7 +15,7 @@
 
 	<modules>
 		<module>lib</module>
-		<module>core</module>
+		<module>extender</module>
 		<module>sampleapp</module>
 		<module>sampleapp2</module>
 		<module>sampleapp3java</module>

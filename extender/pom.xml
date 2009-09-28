@@ -10,8 +10,8 @@
 		<relativePath>../poms/java</relativePath>
 	</parent>
 
-	<artifactId>ogee-core</artifactId>
-	<name>Ogee Core</name>
+	<artifactId>ogee-extender</artifactId>
+	<name>Ogee Extender</name>
 
 	<dependencies>
 		<dependency>
