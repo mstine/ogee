@@ -47,16 +47,17 @@ public class ClojureRuntime {
 		RT.load(name);
 	}
 
-	public void removeBundle(Bundle bundle) {
+	public void moduleAdded(Bundle bundle, String mainModule) throws Exception {
+		Var fn = RT.var("ogee", "module-added");
+		fn.invoke(mainModule, "context", bundle.getBundleContext());
+	}
+
+	public void moduleRemoved(Bundle bundle) throws Exception {
 		chain.removeBundle(bundle);
-		// TODO: remove from service tracking list
+		Var fn = RT.var("ogee", "module-removed");
+		fn.invoke(bundle.getBundleContext());
 	}
-
-	public void initClojureModule(Bundle bundle, String mainModule) throws Exception {
-		Var initModule = RT.var("ogee", "module-start");
-		initModule.invoke(mainModule, "context", bundle.getBundleContext());
-	}
-
+	
 	public void bundleUpdated(Bundle bundle) {
 		logger.info("Bundle [" + bundle + "] updated. Refresh Ogee bundle [" + context.getBundle()
 				+ "] to apply changes.");

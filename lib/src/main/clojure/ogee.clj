@@ -14,17 +14,22 @@
 	(let [allregs (flatten (map deref (map :exported-services (vals @modules))))]
 		(doseq [reg allregs] (.unregister reg))))
 
-(defn- init-module
+(defn- inject-bundle-context
 	"Initializes a module. The atom name-ns/name-var will be set to the BundleContext, if present."
 	[name-ns name-var context]
 	(let [context-atom ((ns-interns (symbol name-ns)) (symbol name-var))]
 		(if (not= context-atom nil) (reset! @context-atom context))))
 	
-(defn module-start
+(defn module-added
 	"Activate the clojure module. name-ns/name-var specify the var where the BundleContext should be injected."
 	[name-ns name-var context]
-	(init-module name-ns name-var context)
+	(inject-bundle-context name-ns name-var context)
 	(dosync (alter modules assoc context {:exported-services (ref [])})))
+	
+(defn module-removed
+	"TODO"
+	[context]
+	(dosync (alter modules dissoc context)))
 	
 (defn- map-to-hashtable
 	"Convert a map to a hashtable."
