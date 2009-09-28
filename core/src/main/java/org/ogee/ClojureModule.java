@@ -22,8 +22,8 @@ public class ClojureModule {
 	}
 
 	private void init() throws Exception {
-//		clojureRuntime.setThreadContextClassLoader();
 		clojureRuntime.addBundleToClassLoader(bundle);
+		clojureRuntime.setThreadContextClassLoader();
 		
 		clojureRuntime.loadModule(mainModule);
 		clojureRuntime.initClojureModule(bundle, mainModule);

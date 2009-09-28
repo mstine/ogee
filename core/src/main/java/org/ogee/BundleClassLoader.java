@@ -15,18 +15,20 @@ public class BundleClassLoader extends ClassLoader {
 	@Override
 	protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
 //		System.out.println("BCL: loadClass " + name);
-		try {
+//		try {
 			Class<?> clazz = bundle.loadClass(name);
 //			System.out.println("    found in bundle");
 			return clazz;
-		} catch (ClassNotFoundException e) {
+//		} catch (ClassNotFoundException e) {
 //			System.out.println("    not found in bundle");
-		}
-		return super.loadClass(name, resolve);
+//		}
+//		throw new ClassNotFoundException(name);
+//		return findClass(name);
+//		return super.loadClass(name, resolve);
 	}
 
 	@Override
-	public URL findResource(String name) {
+	public URL getResource(String name) {
 //		System.out.println("BCL: getResource " + convertPath(name));
 		URL resource = bundle.getResource(convertPath(name));
 		if (resource != null) {
@@ -35,7 +37,9 @@ public class BundleClassLoader extends ClassLoader {
 		} else {
 //			System.out.println("    not found in bundle " + bundle);
 		}
-		return super.findResource(name);
+		return null;
+//		return findResource(name);
+//		return super.findResource(name);
 	}
 
 	private String convertPath(String fqcn) {

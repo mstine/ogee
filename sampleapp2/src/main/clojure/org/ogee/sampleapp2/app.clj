@@ -3,7 +3,7 @@
   (:require org.ogee.sampleapp2.util))
 
 (defn start [ctx]
-  (println "hh")
+  (println "a")
   (org.ogee.sampleapp2.util/abc)
   ((:hello (smap-import ctx :app1service))))
 

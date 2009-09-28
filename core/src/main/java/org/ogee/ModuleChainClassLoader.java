@@ -8,14 +8,20 @@ import org.osgi.framework.Bundle;
 
 public class ModuleChainClassLoader extends ClassLoader {
 
+	private final ClassLoader parent;
 	private final List<Bundle> bundles = new LinkedList<Bundle>();
 	
 	public ModuleChainClassLoader(ClassLoader parent) {
-		super(parent);
+		this.parent = parent;
 	}
 	
 	@Override
-	public URL findResource(String name) {
+	protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
+		return parent.loadClass(name);
+	}
+
+	@Override
+	public URL getResource(String name) {
 //		System.out.println("BChainCL: getResource " + name);
 		for (Bundle bundle : bundles) {
 			URL resource = bundle.getResource(convertPath(name));
@@ -26,7 +32,7 @@ public class ModuleChainClassLoader extends ClassLoader {
 //				System.out.println("    not found in bundlelist " + bundle);
 			}
 		}
-		return super.findResource(name);
+		return parent.getResource(name);
 	}
 
 	private String convertPath(String fqcn) {
