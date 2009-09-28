@@ -22,10 +22,9 @@ public class ClojureModule {
 	}
 
 	private void init() throws Exception {
-		clojureRuntime.addBundleToClassLoader(bundle);
 		clojureRuntime.setThreadContextClassLoader();
-		
-		clojureRuntime.loadModule(mainModule);
+
+		clojureRuntime.loadModule(bundle, mainModule);
 		clojureRuntime.initClojureModule(bundle, mainModule);
 		mainModuleStart = RT.var(mainModule, "start");
 		mainModuleStop = RT.var(mainModule, "stop");
@@ -44,6 +43,8 @@ public class ClojureModule {
 			mainModuleStop.invoke(bundle.getBundleContext());
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			clojureRuntime.removeBundle(bundle);
 		}
 	}
 

@@ -29,6 +29,8 @@ public class ClojureModuleBundleTracker implements SynchronousBundleListener {
 			analyseRemovedBundle(event.getBundle());
 		else if (event.getType() == BundleEvent.STARTED)
 			analyseNewBundle(event.getBundle());
+		else if (event.getType() == BundleEvent.UPDATED)
+			clojureRuntime.bundleUpdated(event.getBundle());
 	}
 
 	private void analyseNewBundle(Bundle b) {
@@ -44,24 +46,19 @@ public class ClojureModuleBundleTracker implements SynchronousBundleListener {
 
 			Object cmHeader = b.getHeaders().get("Clojure-Module");
 			if (cmHeader != null)
-				createClojureModule(b, (String) cmHeader);
+				moduleStart(b, (String) cmHeader);
 		}
 	}
 
 	private void analyseRemovedBundle(Bundle b) {
 		synchronized (trackedBundles) {
 			if (trackedBundles.containsKey(b)) {
-				try {
-					trackedBundles.get(b).stop();
-					trackedBundles.remove(b);
-				} finally {
-					clojureRuntime.removeBundleFromClassLoader(b);
-				}
+				moduleStop(b);
 			}
 		}
 	}
 
-	private void createClojureModule(final Bundle bundle, final String mainModule) {
+	private void moduleStart(final Bundle bundle, final String mainModule) {
 		try {
 			ClojureModule module = new ClojureModule(clojureRuntime, bundle, mainModule);
 			module.start();
@@ -69,6 +66,11 @@ public class ClojureModuleBundleTracker implements SynchronousBundleListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void moduleStop(final Bundle bundle) {
+		trackedBundles.get(bundle).stop();
+		trackedBundles.remove(bundle);
 	}
 
 }

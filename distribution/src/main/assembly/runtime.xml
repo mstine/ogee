@@ -6,24 +6,56 @@
 	<includeBaseDirectory>false</includeBaseDirectory>
 	<fileSets>
 		<fileSet>
-			<directory>src/main/resources/runtime</directory>
+			<excludes>
+				<exclude>start.sh</exclude>
+			</excludes>
+			<directory>src/main/resources</directory>
 			<outputDirectory></outputDirectory>
 		</fileSet>
 		<fileSet>
-			<directory>target/generated/runtime</directory>
+			<includes>
+				<include>start.sh</include>
+			</includes>
+			<directory>src/main/resources</directory>
 			<outputDirectory></outputDirectory>
+			<fileMode>0764</fileMode>
 		</fileSet>
 	</fileSets>
 	<dependencySets>
 		<dependencySet>
+			<excludes>
+				<exclude>org.apache.felix:org.apache.felix.fileinstall</exclude>
+				<exclude>org.ops4j.pax.runner:pax-runner-assembly</exclude>
+			</excludes>
+			<outputDirectory>runner/load</outputDirectory>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<useProjectArtifact>false</useProjectArtifact>
+			<useProjectAttachments>false</useProjectAttachments>
+		</dependencySet>
+		<!--
+		<dependencySet>
+			<outputDirectory>runner/load</outputDirectory>
+			<scope>provided</scope>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<useProjectArtifact>false</useProjectArtifact>
+			<useProjectAttachments>false</useProjectAttachments>
+		</dependencySet>
+		-->
+		<dependencySet>
+			<includes>
+				<include>org.apache.felix:org.apache.felix.fileinstall</include>
+			</includes>
 			<outputDirectory>.</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
 			<useProjectArtifact>false</useProjectArtifact>
 			<useProjectAttachments>false</useProjectAttachments>
 		</dependencySet>
 		<dependencySet>
+			<includes>
+				<include>org.ops4j.pax.runner:pax-runner-assembly</include>
+			</includes>
 			<outputDirectory>.</outputDirectory>
-			<scope>provided</scope>
+			<unpack>true</unpack>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
 			<useProjectArtifact>false</useProjectArtifact>
 			<useProjectAttachments>false</useProjectAttachments>

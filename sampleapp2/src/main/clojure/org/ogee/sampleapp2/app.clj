@@ -7,7 +7,8 @@
   (org.ogee.sampleapp2.util/abc)
   ((:hello (smap-import ctx :app1service))))
 
-(defn stop [_])
+(defn stop [_]
+	(println "app2 stopped"))
 
 
 
