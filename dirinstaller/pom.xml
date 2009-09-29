@@ -25,6 +25,7 @@
 					<instructions>
 						<Bundle-Activator>org.ogee.dirinstaller.Activator</Bundle-Activator>
 						<Private-Package>org.ogee.dirinstaller</Private-Package>
+						<Export-Package>org.osgi.service.cm;version="1.3"</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>

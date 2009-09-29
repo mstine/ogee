@@ -24,7 +24,7 @@
 	<dependencySets>
 		<dependencySet>
 			<excludes>
-				<exclude>org.apache.felix:org.apache.felix.fileinstall</exclude>
+				<exclude>${project.groupId}:ogee-dirinstaller</exclude>
 				<exclude>org.ops4j.pax.runner:pax-runner-assembly</exclude>
 			</excludes>
 			<outputDirectory>runner/load</outputDirectory>
@@ -43,7 +43,7 @@
 		-->
 		<dependencySet>
 			<includes>
-				<include>org.apache.felix:org.apache.felix.fileinstall</include>
+				<include>${project.groupId}:ogee-dirinstaller</include>
 			</includes>
 			<outputDirectory>.</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
