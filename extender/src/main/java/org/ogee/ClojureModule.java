@@ -1,6 +1,7 @@
 package org.ogee;
 
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 
 import clojure.lang.RT;
 import clojure.lang.Var;
@@ -11,9 +12,6 @@ public class ClojureModule {
 	private final Bundle bundle;
 	private final String mainModule;
 
-	private Var mainModuleStart;
-	private Var mainModuleStop;
-
 	public ClojureModule(ClojureRuntime clojureRuntime, Bundle bundle, String mainModule) throws Exception {
 		this.clojureRuntime = clojureRuntime;
 		this.bundle = bundle;
@@ -23,29 +21,36 @@ public class ClojureModule {
 
 	private void init() throws Exception {
 		clojureRuntime.setThreadContextClassLoader();
-
-		clojureRuntime.loadModule(bundle, mainModule);
-		clojureRuntime.moduleAdded(bundle, mainModule);
-		mainModuleStart = RT.var(mainModule, "start");
-		mainModuleStop = RT.var(mainModule, "stop");
 	}
 
 	public void start() {
+		clojureRuntime.setThreadContextClassLoader();
+		if (mainModule == null)
+			return;
 		try {
-			mainModuleStart.invoke(bundle.getBundleContext());
+			clojureRuntime.loadModule(mainModule);
+			clojureRuntime.moduleStarted(bundle, mainModule);
+			Var mainModuleStart = RT.var(mainModule, "start");
+			
+			BundleContext bundleContext = bundle.getBundleContext();
+			mainModuleStart.invoke(bundleContext);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	public void stop() {
+		clojureRuntime.setThreadContextClassLoader();
+		if (mainModule == null)
+			return;
 		try {
+			Var mainModuleStop = RT.var(mainModule, "stop");
 			mainModuleStop.invoke(bundle.getBundleContext());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				clojureRuntime.moduleRemoved(bundle);
+				clojureRuntime.moduleStopped(bundle);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

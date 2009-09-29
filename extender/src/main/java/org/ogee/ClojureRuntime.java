@@ -29,7 +29,8 @@ public class ClojureRuntime {
 		chain = new ModuleChainClassLoader(withLib);
 		setThreadContextClassLoader();
 
-		loadModule(null, "ogee");
+//		addModuleToClasspath(null, "ogee");
+		loadModule("ogee");
 		RT.var("ogee", "ogee-start").invoke();
 	}
 
@@ -41,23 +42,28 @@ public class ClojureRuntime {
 		Thread.currentThread().setContextClassLoader(chain);
 	}
 
-	public void loadModule(Bundle bundle, String name) throws Exception {
-		if (bundle != null)
-			chain.addBundle(bundle);
+	public void addModuleToClasspath(Bundle bundle) {
+		chain.addBundle(bundle);
+	}
+
+	public void loadModule(String name) throws Exception {
 		RT.load(name);
 	}
 
-	public void moduleAdded(Bundle bundle, String mainModule) throws Exception {
+	public void removeModuleFromClasspath(Bundle bundle) {
+		chain.removeBundle(bundle);
+	}
+
+	public void moduleStarted(Bundle bundle, String mainModule) throws Exception {
 		Var fn = RT.var("ogee", "module-added");
 		fn.invoke(mainModule, "context", bundle.getBundleContext());
 	}
 
-	public void moduleRemoved(Bundle bundle) throws Exception {
-		chain.removeBundle(bundle);
+	public void moduleStopped(Bundle bundle) throws Exception {
 		Var fn = RT.var("ogee", "module-removed");
 		fn.invoke(bundle.getBundleContext());
 	}
-	
+
 	public void bundleUpdated(Bundle bundle) {
 		logger.info("Bundle [" + bundle + "] updated. Refresh Ogee bundle [" + context.getBundle()
 				+ "] to apply changes.");

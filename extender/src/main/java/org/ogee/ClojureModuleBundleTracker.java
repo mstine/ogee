@@ -20,57 +20,86 @@ public class ClojureModuleBundleTracker implements SynchronousBundleListener {
 	}
 
 	public void checkAllInstalledBundles() {
-		for (Bundle b : context.getBundles())
-			analyseNewBundle(b);
-	}
-
-	public void bundleChanged(BundleEvent event) {
-		if (event.getType() == BundleEvent.STOPPING)
-			analyseRemovedBundle(event.getBundle());
-		else if (event.getType() == BundleEvent.STARTED)
-			analyseNewBundle(event.getBundle());
-		else if (event.getType() == BundleEvent.UPDATED)
-			clojureRuntime.bundleUpdated(event.getBundle());
-	}
-
-	private void analyseNewBundle(Bundle b) {
-		synchronized (trackedBundles) {
-			if (b.getState() != Bundle.ACTIVE)
-				return;
-
-			if (trackedBundles.containsKey(b))
-				return;
-
-			if (b.getBundleContext() == null)
-				return;
-
-			Object cmHeader = b.getHeaders().get("Clojure-Module");
-			if (cmHeader != null)
-				moduleStart(b, (String) cmHeader);
+		for (Bundle b : context.getBundles()) {
+			onNewBundle(b);
+			if (b.getState() == Bundle.ACTIVE)
+				onStartedBundle(b);
 		}
 	}
 
-	private void analyseRemovedBundle(Bundle b) {
+	public void bundleChanged(BundleEvent event) {
+		if (event.getType() == BundleEvent.RESOLVED)
+			onNewBundle(event.getBundle());
+		else if (event.getType() == BundleEvent.STARTED)
+			onStartedBundle(event.getBundle());
+		else if (event.getType() == BundleEvent.STOPPED)
+			onStoppedBundle(event.getBundle());
+		else if (event.getType() == BundleEvent.UPDATED)
+			onUpdatedBundle(event.getBundle());
+		else if (event.getType() == BundleEvent.UNINSTALLED)
+			onUninstalledBundle(event.getBundle());
+	}
+
+	private void onNewBundle(Bundle b) {
 		synchronized (trackedBundles) {
-			if (trackedBundles.containsKey(b)) {
-				moduleStop(b);
+			if (trackedBundles.containsKey(b))
+				return;
+			String cmHeader = (String) b.getHeaders().get("Clojure-Module");
+			if (cmHeader == null && !b.getLocation().endsWith("clj.jar"))
+				return;
+
+			clojureRuntime.addModuleToClasspath(b);
+			ClojureModule module = null;
+			try {
+				module = new ClojureModule(clojureRuntime, b, cmHeader);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			trackedBundles.put(b, module);
+		}
+	}
+
+	private void onStartedBundle(Bundle b) {
+		synchronized (trackedBundles) {
+			if (!trackedBundles.containsKey(b))
+				return;
+			if (b.getBundleContext() == null)
+				return;
+
+			try {
+				trackedBundles.get(b).start();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}
 
-	private void moduleStart(final Bundle bundle, final String mainModule) {
-		try {
-			ClojureModule module = new ClojureModule(clojureRuntime, bundle, mainModule);
-			module.start();
-			trackedBundles.put(bundle, module);
-		} catch (Exception e) {
-			e.printStackTrace();
+	private void onStoppedBundle(Bundle b) {
+		synchronized (trackedBundles) {
+			if (!trackedBundles.containsKey(b))
+				return;
+
+			trackedBundles.get(b).stop();
 		}
 	}
 
-	private void moduleStop(final Bundle bundle) {
-		trackedBundles.get(bundle).stop();
-		trackedBundles.remove(bundle);
+	private void onUpdatedBundle(Bundle b) {
+		synchronized (trackedBundles) {
+			if (!trackedBundles.containsKey(b))
+				return;
+
+			clojureRuntime.bundleUpdated(b);
+		}
+	}
+
+	private void onUninstalledBundle(Bundle b) {
+		synchronized (trackedBundles) {
+			if (!trackedBundles.containsKey(b))
+				return;
+
+			clojureRuntime.removeModuleFromClasspath(b);
+			trackedBundles.remove(b);
+		}
 	}
 
 }

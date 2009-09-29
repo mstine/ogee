@@ -68,20 +68,12 @@
 				<version>1.0-SNAPSHOT</version>
 			</dependency>
 			<!--
-			<dependency>
-				<groupId>org.osgi</groupId>
-				<artifactId>org.osgi.core</artifactId>
-				<version>${osgi.version}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.osgi</groupId>
-				<artifactId>org.osgi.compendium</artifactId>
-				<version>${osgi.version}</version>
-				<scope>provided</scope>
-			</dependency>
+				<dependency> <groupId>org.osgi</groupId> <artifactId>org.osgi.core</artifactId> <version>${osgi.version}</version>
+				<scope>provided</scope> </dependency> <dependency> <groupId>org.osgi</groupId>
+				<artifactId>org.osgi.compendium</artifactId> <version>${osgi.version}</version> <scope>provided</scope>
+				</dependency>
 			-->
-			
+
 			<dependency>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>org.osgi.core</artifactId>
@@ -92,9 +84,9 @@
 				<artifactId>org.osgi.compendium</artifactId>
 				<version>1.4.0</version>
 			</dependency>
-			
-			
-			
+
+
+
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
@@ -106,16 +98,16 @@
 				<artifactId>pax-logging-api</artifactId>
 				<version>1.4</version>
 			</dependency>
+			<dependency>
+				<groupId>org.ops4j.pax.web</groupId>
+				<artifactId>pax-web-service</artifactId>
+				<version>0.7.0-SNAPSHOT</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>org.apache.felix.configadmin</artifactId>
 				<version>1.2.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>org.apache.felix.fileinstall</artifactId>
-				<version>2.0.0</version>
 			</dependency>
 
 			<dependency>

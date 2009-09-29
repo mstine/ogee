@@ -39,7 +39,7 @@
 						<Bundle-Activator>org.ogee.Activator</Bundle-Activator>
 						<Export-Package>
 							org.ogee.*;version=${project.version},
-							clojure.*;version="1.0.1"
+							clojure.*;version="1.0.1";-split-package:=merge-first
 						</Export-Package>
 						<_nouses>true</_nouses>
 						<Include-Resource>target/libs</Include-Resource>

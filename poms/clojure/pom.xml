@@ -48,6 +48,7 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<!--
 			<plugin>
 				<groupId>com.theoryinpractise</groupId>
 				<artifactId>clojure-maven-plugin</artifactId>
@@ -67,6 +68,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 		</plugins>
 	</build>
 </project>

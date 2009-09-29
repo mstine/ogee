@@ -22,14 +22,14 @@ public class ModuleChainClassLoader extends ClassLoader {
 
 	@Override
 	public URL getResource(String name) {
-//		System.out.println("BChainCL: getResource " + name);
+		System.out.println("BChainCL: getResource " + name);
 		for (Bundle bundle : bundles) {
 			URL resource = bundle.getResource(convertPath(name));
 			if (resource != null) {
-//				System.out.println("    found in bundlelist " + bundle);
+				System.out.println("    found in bundlelist " + bundle);
 				return resource;
 			} else {
-//				System.out.println("    not found in bundlelist " + bundle);
+				System.out.println("    not found in bundlelist " + bundle);
 			}
 		}
 		return parent.getResource(name);

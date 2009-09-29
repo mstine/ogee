@@ -155,6 +155,7 @@ public class DirWatcher {
 	}
 
 	private void startAllAndRefresh() {
+		PackageAdmin pa = (PackageAdmin) this.packageAdminTracker.getService();
 		for (Bundle b : context.getBundles()) {
 			try {
 				if (b.getState() != Bundle.ACTIVE && !isFragment(b)) {
@@ -165,9 +166,8 @@ public class DirWatcher {
 				e.printStackTrace();
 			}
 		}
-		PackageAdmin admin = (PackageAdmin) this.packageAdminTracker.getService();
 		System.out.println("DirInstaller: Refreshing packages");
-		admin.refreshPackages(null);
+		pa.refreshPackages(null);
 	}
 
 	private boolean isFragment(Bundle b) {
@@ -191,7 +191,11 @@ public class DirWatcher {
 		}
 		// If the bundle is not installed, perform bundle install
 		System.out.println("DirInstaller: Installing bundle [" + s + "]");
-		context.installBundle("file:" + s);
+		Bundle bundle = context.installBundle("file:" + s);
+		System.out.println("DirInstaller: Resolving bundle [" + s + "]");
+		PackageAdmin pa = (PackageAdmin) this.packageAdminTracker.getService();
+		boolean result = pa.resolveBundles(new Bundle[] { bundle });
+		System.out.println("DirInstaller: Resolving bundle successful? = " + result);
 	}
 
 }
