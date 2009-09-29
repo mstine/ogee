@@ -12,6 +12,7 @@
 	<modules>
 		<module>lib</module>
 		<module>extender</module>
+		<module>dirinstaller</module>
 		<module>sampleapp</module>
 		<module>sampleapp2</module>
 		<module>sampleapp3java</module>
