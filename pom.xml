@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.ogee</groupId>
-	<artifactId>product</artifactId>
+	<artifactId>ogee</artifactId>
 	<version>0.0.2</version>
 	<name>Ogee Parent</name>
 	<packaging>pom</packaging>
