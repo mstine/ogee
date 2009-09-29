@@ -1,5 +1,6 @@
 (ns ogee
 	(:use clojure.contrib.seq-utils)
+	(:require [clojure.contrib.logging :as logging])
 	(:import (java.lang.reflect InvocationHandler Proxy)
 					 (org.osgi.util.tracker ServiceTracker)
 					 (org.osgi.framework BundleContext)))
@@ -7,7 +8,7 @@
 (def modules (ref {}))
 
 (defn ogee-start []
-  (println "Ogee started."))
+  (logging/info "Ogee started"))
 
 (defn ogee-stop []
 	"Shutdown the Ogee runtime."
