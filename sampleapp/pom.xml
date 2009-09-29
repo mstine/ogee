@@ -29,9 +29,8 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Bundle-SymbolicName>org.ogee.sampleapp</Bundle-SymbolicName>
-							<Clojure-Module>org.ogee.sampleapp.app</Clojure-Module>
-							<Bundle-Version>1</Bundle-Version>
+							<Bundle-SymbolicName>ogee.sampleapp</Bundle-SymbolicName>
+							<Clojure-Module>ogee.sampleapp.app</Clojure-Module>
 						</manifestEntries>
 					</archive>
 				</configuration>

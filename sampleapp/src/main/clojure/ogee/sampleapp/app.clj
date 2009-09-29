@@ -1,4 +1,4 @@
-(ns org.ogee.sampleapp.app
+(ns ogee.sampleapp.app
 	(:use ogee))
  
 (def context (atom nil))
