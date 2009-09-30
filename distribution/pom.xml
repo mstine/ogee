@@ -75,11 +75,13 @@
 			<artifactId>ogee-sampleapp2</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ogee-sampleapp3java</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		-->
 
 	</dependencies>
 

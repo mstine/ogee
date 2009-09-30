@@ -26,21 +26,24 @@
 			<excludes>
 				<exclude>${project.groupId}:ogee-dirinstaller</exclude>
 				<exclude>org.ops4j.pax.runner:pax-runner-assembly</exclude>
+				<exclude>${project.groupId}:ogee-sampleapp</exclude>
+				<exclude>${project.groupId}:ogee-sampleapp2</exclude>
 			</excludes>
-			<outputDirectory>runner/load</outputDirectory>
+			<outputDirectory>runner/bundles</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
 			<useProjectArtifact>false</useProjectArtifact>
 			<useProjectAttachments>false</useProjectAttachments>
 		</dependencySet>
-		<!--
 		<dependencySet>
-			<outputDirectory>runner/load</outputDirectory>
-			<scope>provided</scope>
+			<includes>
+				<include>${project.groupId}:ogee-sampleapp</include>
+				<include>${project.groupId}:ogee-sampleapp2</include>
+			</includes>
+			<outputDirectory>runner/cljs</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
 			<useProjectArtifact>false</useProjectArtifact>
 			<useProjectAttachments>false</useProjectAttachments>
 		</dependencySet>
-		-->
 		<dependencySet>
 			<includes>
 				<include>${project.groupId}:ogee-dirinstaller</include>

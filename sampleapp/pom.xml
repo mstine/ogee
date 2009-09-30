@@ -29,7 +29,7 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Bundle-SymbolicName>ogee.sampleapp</Bundle-SymbolicName>
+<!--							<Bundle-SymbolicName>ogee.sampleapp</Bundle-SymbolicName>-->
 							<Clojure-Module>ogee.sampleapp.app</Clojure-Module>
 						</manifestEntries>
 					</archive>

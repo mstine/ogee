@@ -1,7 +1,9 @@
 package org.ogee;
 
+import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.jar.JarFile;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -16,22 +18,36 @@ public class ClojureRuntime {
 	private final Logger logger = LoggerFactory.getLogger(ClojureRuntime.class);
 
 	private final BundleContext context;
-	private ModuleChainClassLoader chain;
 
-	public ClojureRuntime(BundleContext context) throws Exception {
+	private final URL[] initCljs;
+
+	private ClassLoader classLoader;
+
+	public ClojureRuntime(BundleContext context, URL[] initCljs) throws Exception {
 		this.context = context;
+		this.initCljs = initCljs;
+		ClassLoader bundle = new BundleClassLoader(context.getBundle());
+		ClassLoader withLib = new URLClassLoader(new URL[] {(URL) context.getBundle().findEntries("ogee-lib", "*.jar", false)
+				.nextElement()}, bundle);
+		classLoader = new URLClassLoader(initCljs, withLib);
 	}
 
 	public void init() throws Exception {
-		ClassLoader withLib = new URLClassLoader(new URL[] { (URL) context.getBundle().findEntries(
-				"ogee-lib", "*.jar", false).nextElement() }, new BundleClassLoader(context.getBundle()));
-
-		chain = new ModuleChainClassLoader(withLib);
 		setThreadContextClassLoader();
 
-//		addModuleToClasspath(null, "ogee");
 		loadModule("ogee");
 		RT.var("ogee", "ogee-start").invoke();
+
+		for (URL clj : initCljs) {
+			JarFile jar = new JarFile(new File(clj.toURI()));
+			String cm = jar.getManifest().getMainAttributes().getValue("Clojure-Module");
+			if (cm == null)
+				continue;
+			System.out.println("Loading module: " + cm);
+			loadModule(cm);
+			moduleStarted(context.getBundle(), cm);
+			System.out.println("###");
+		}
 	}
 
 	public void destroy() throws Exception {
@@ -39,19 +55,11 @@ public class ClojureRuntime {
 	}
 
 	public void setThreadContextClassLoader() {
-		Thread.currentThread().setContextClassLoader(chain);
-	}
-
-	public void addModuleToClasspath(Bundle bundle) {
-		chain.addBundle(bundle);
+		Thread.currentThread().setContextClassLoader(classLoader);
 	}
 
 	public void loadModule(String name) throws Exception {
 		RT.load(name);
-	}
-
-	public void removeModuleFromClasspath(Bundle bundle) {
-		chain.removeBundle(bundle);
 	}
 
 	public void moduleStarted(Bundle bundle, String mainModule) throws Exception {

@@ -12,7 +12,7 @@ public class Activator implements BundleActivator {
 	
 	public void start(BundleContext context) throws Exception {
 		String bundlesDir = context.getProperty(DIRINSTALLER_DIR);
-		bundlesDir = bundlesDir == null ? "load" : bundlesDir;
+		bundlesDir = bundlesDir == null ? "bundles" : bundlesDir;
 		
 		String intervalStr = context.getProperty(DIRINSTALLER_POLL);
 		Integer interval = intervalStr == null ? 2000 : Integer.valueOf(intervalStr);
