@@ -1,13 +1,8 @@
 (ns ogee.sampleapp2.app
-	(:use ogee)
-	(:use [compojure :only (defroutes
-												   GET
-												   html
-												   ANY
-												   page-not-found
-												   servlet)]) 
-  (:require ogee.sampleapp2.util)
-  )
+	(:use [compojure :only (defroutes GET html ANY page-not-found servlet)]) 
+  (:require
+  	ogee.sampleapp2.util
+  	ogee.osgi))
 
 (defroutes my-app
   (ANY "*"
@@ -16,8 +11,8 @@
 (defn start [ctx]
   (println "app2 started")
   (ogee.sampleapp2.util/abc)
-  (register-servlet ctx (servlet my-app) "/myservlet") 
-  ((:hello (smap-import ctx :app1service)))
+  (ogee.osgi/register-servlet ctx (servlet my-app) "/myservlet") 
+  ((:hello (ogee.osgi/smap-import ctx :app1service)))
   )
 
 (defn stop [_]
