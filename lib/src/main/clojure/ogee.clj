@@ -8,7 +8,7 @@
 (def modules (ref {}))
 
 (defn ogee-start []
-  (logging/info "Ogee started"))
+  (logging/info "Ogee started."))
 
 (defn ogee-stop []
 	"Shutdown the Ogee runtime."

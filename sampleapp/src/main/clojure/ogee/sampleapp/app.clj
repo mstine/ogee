@@ -1,4 +1,4 @@
-(ns ogee.sampleapp.app1
+(ns ogee.sampleapp.app
 	;(:use ogee)
 	)
  

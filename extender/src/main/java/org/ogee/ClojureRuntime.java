@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import clojure.lang.RT;
-import clojure.lang.Var;
 
 public class ClojureRuntime {
 
@@ -33,7 +32,7 @@ public class ClojureRuntime {
 
 	public void init() throws Exception {
 		setThreadContextClassLoader();
-		System.out.println("Starting Ogee...");
+		logger.info("Starting Ogee...");
 		loadModule("ogee");
 		RT.var("ogee", "ogee-start").invoke();
 
@@ -48,7 +47,7 @@ public class ClojureRuntime {
 	}
 
 	public void destroy() throws Exception {
-		 RT.var("ogee", "ogee-stop").invoke();
+		RT.var("ogee", "ogee-stop").invoke();
 	}
 
 	public void setThreadContextClassLoader() {
@@ -60,18 +59,12 @@ public class ClojureRuntime {
 	}
 
 	public void moduleStarted(Bundle bundle, String mainModule) throws Exception {
-		Var fn = RT.var("ogee", "module-added");
-		fn.invoke(mainModule, "context", bundle.getBundleContext());
+		RT.var("ogee", "module-added").invoke(mainModule, "context", bundle.getBundleContext());
+		RT.var(mainModule, "start").invoke(context);
 	}
 
 	public void moduleStopped(Bundle bundle) throws Exception {
-		Var fn = RT.var("ogee", "module-removed");
-		fn.invoke(bundle.getBundleContext());
-	}
-
-	public void bundleUpdated(Bundle bundle) {
-		logger.info("Bundle [" + bundle + "] updated. Refresh Ogee bundle [" + context.getBundle()
-				+ "] to apply changes.");
+		RT.var("ogee", "module-removed").invoke(bundle.getBundleContext());
 	}
 
 }
