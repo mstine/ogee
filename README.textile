@@ -1,4 +1,4 @@
-h1. !http://www.tuxed.de/ogee_banner.png! 
+!http://github.com/romanroe/ogee/raw/master/website/ogee_banner.png!  
 
 h3. "http://www.ogeesource.org":http://www.ogeesource.org
 
