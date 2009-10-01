@@ -57,3 +57,8 @@
   [context sname service]
   (.registerService context "java.util.Map" service (map-to-hashtable {"ogee.service.name" (str sname)})))
 
+(defn register-servlet
+	[context servlet url]
+	(.registerService context "javax.servlet.Servlet" servlet (map-to-hashtable {"alias" (str url)})))
+	
+	

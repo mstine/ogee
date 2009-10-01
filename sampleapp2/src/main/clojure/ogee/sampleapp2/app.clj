@@ -1,22 +1,22 @@
 (ns ogee.sampleapp2.app
-	(:use ogee ogee.sampleapp2.util)
-	;compojure
-  ;(:require ogee.sampleapp2.util)
+	(:use ogee)
+	(:use [compojure :only (defroutes
+												   GET
+												   html
+												   ANY
+												   page-not-found
+												   servlet)]) 
+  (:require ogee.sampleapp2.util)
   )
 
-;(defroutes my-app
-  ;(GET "/"
-    ;(html [:h1 "Hello World"]))
-  ;(ANY "*"
-    ;(page-not-found)))
-
-
+(defroutes my-app
+  (ANY "*"
+    (html [:h1 "Hello World"])))
 
 (defn start [ctx]
   (println "app2 started")
-  (abc)
-  ;(ogee.sampleapp2.util/abc)
-  ;(println "XXX" (servlet my-app))
+  (ogee.sampleapp2.util/abc)
+  (register-servlet ctx (servlet my-app) "/myservlet") 
   ((:hello (smap-import ctx :app1service)))
   )
 
