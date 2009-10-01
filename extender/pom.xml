@@ -15,11 +15,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-lib</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.clojure</groupId>
 			<artifactId>clojure-lang</artifactId>
 		</dependency>
@@ -42,29 +37,9 @@
 							clojure.*;version="1.0.1";-split-package:=merge-first
 						</Export-Package>
 						<_nouses>true</_nouses>
-						<Include-Resource>target/libs</Include-Resource>
 						<DynamicImport-Package>*</DynamicImport-Package>
 					</instructions>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-ogee-lib</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<excludeTransitive>true</excludeTransitive>
-							<includeGroupIds>${project.groupId}</includeGroupIds>
-							<includeArtifactIds>ogee-lib</includeArtifactIds>
-							<outputDirectory>${project.build.directory}/libs/ogee-lib</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

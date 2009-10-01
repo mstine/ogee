@@ -16,14 +16,22 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>de.tuxed</groupId>
-			<artifactId>mvnbb</artifactId>
-			<version>0.0.1</version>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.main</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
+			<artifactId>org.apache.felix.shell</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.shell.tui</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.configadmin</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.ops4j.pax.logging</groupId>
 			<artifactId>pax-logging-api</artifactId>
@@ -44,17 +52,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.apache.felix.configadmin</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ops4j.pax.runner</groupId>
-			<artifactId>pax-runner-assembly</artifactId>
-			<classifier>jdk15</classifier>
-			<type>zip</type>
-		</dependency>
-
-		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ogee-dirinstaller</artifactId>
 			<version>${project.version}</version>
@@ -64,7 +61,11 @@
 			<artifactId>ogee-extender</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ogee-lib</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ogee-sampleapp</artifactId>
@@ -76,11 +77,8 @@
 			<version>${project.version}</version>
 		</dependency>
 		<!--
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-sampleapp3java</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+			<dependency> <groupId>${project.groupId}</groupId> <artifactId>ogee-sampleapp3java</artifactId>
+			<version>${project.version}</version> </dependency>
 		-->
 
 	</dependencies>

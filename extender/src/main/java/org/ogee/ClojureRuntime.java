@@ -3,7 +3,6 @@ package org.ogee;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Arrays;
 import java.util.jar.JarFile;
 
 import org.osgi.framework.Bundle;
@@ -27,22 +26,14 @@ public class ClojureRuntime {
 	public ClojureRuntime(BundleContext context, URL[] initCljs) throws Exception {
 		this.context = context;
 		this.initCljs = initCljs;
-		ClassLoader bundle = new BundleClassLoader(context.getBundle());
-
-		URL[] all = Arrays.copyOf(initCljs, initCljs.length + 1);
-		all[all.length - 1] = (URL) context.getBundle().findEntries("ogee-lib", "*.jar", false).nextElement();
-
-		classLoader = new URLClassLoader(all, bundle);
-
-		System.out.println("#####################");
-		for (URL url : all) {
-			System.out.println(url);
-		}
+		ClassLoader libs = classLoader = new URLClassLoader(initCljs);
+		ClassLoader bundle = new BundleClassLoader(context.getBundle(), libs);
+		classLoader = new ClojureClassLoader(bundle, libs);
 	}
 
 	public void init() throws Exception {
 		setThreadContextClassLoader();
-
+		System.out.println("Starting Ogee...");
 		loadModule("ogee");
 		RT.var("ogee", "ogee-start").invoke();
 
@@ -51,15 +42,13 @@ public class ClojureRuntime {
 			String cm = jar.getManifest().getMainAttributes().getValue("Clojure-Module");
 			if (cm == null)
 				continue;
-			System.out.println("Loading module: " + cm);
 			loadModule(cm);
 			moduleStarted(context.getBundle(), cm);
-			System.out.println("###");
 		}
 	}
 
 	public void destroy() throws Exception {
-		RT.var("ogee", "ogee-stop").invoke();
+		 RT.var("ogee", "ogee-stop").invoke();
 	}
 
 	public void setThreadContextClassLoader() {

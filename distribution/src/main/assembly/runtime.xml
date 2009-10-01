@@ -23,42 +23,34 @@
 	</fileSets>
 	<dependencySets>
 		<dependencySet>
+			<includes>
+				<include>org.apache.felix:org.apache.felix.main</include>
+			</includes>
+			<outputDirectory>bin</outputDirectory>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<useProjectArtifact>false</useProjectArtifact>
+			<useProjectAttachments>false</useProjectAttachments>
+			<outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+		</dependencySet>
+		<dependencySet>
 			<excludes>
-				<exclude>${project.groupId}:ogee-dirinstaller</exclude>
-				<exclude>org.ops4j.pax.runner:pax-runner-assembly</exclude>
+				<exclude>org.apache.felix:org.apache.felix.main</exclude>
+				<exclude>${project.groupId}:ogee-lib</exclude>
 				<exclude>${project.groupId}:ogee-sampleapp</exclude>
 				<exclude>${project.groupId}:ogee-sampleapp2</exclude>
 			</excludes>
-			<outputDirectory>runner/bundles</outputDirectory>
+			<outputDirectory>bundle</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
 			<useProjectArtifact>false</useProjectArtifact>
 			<useProjectAttachments>false</useProjectAttachments>
 		</dependencySet>
 		<dependencySet>
 			<includes>
+				<include>${project.groupId}:ogee-lib</include>
 				<include>${project.groupId}:ogee-sampleapp</include>
 				<include>${project.groupId}:ogee-sampleapp2</include>
 			</includes>
-			<outputDirectory>runner/cljs</outputDirectory>
-			<useTransitiveDependencies>false</useTransitiveDependencies>
-			<useProjectArtifact>false</useProjectArtifact>
-			<useProjectAttachments>false</useProjectAttachments>
-		</dependencySet>
-		<dependencySet>
-			<includes>
-				<include>${project.groupId}:ogee-dirinstaller</include>
-			</includes>
-			<outputDirectory>.</outputDirectory>
-			<useTransitiveDependencies>false</useTransitiveDependencies>
-			<useProjectArtifact>false</useProjectArtifact>
-			<useProjectAttachments>false</useProjectAttachments>
-		</dependencySet>
-		<dependencySet>
-			<includes>
-				<include>org.ops4j.pax.runner:pax-runner-assembly</include>
-			</includes>
-			<outputDirectory>.</outputDirectory>
-			<unpack>true</unpack>
+			<outputDirectory>cljs</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
 			<useProjectArtifact>false</useProjectArtifact>
 			<useProjectAttachments>false</useProjectAttachments>

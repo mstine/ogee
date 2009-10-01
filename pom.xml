@@ -12,10 +12,8 @@
 	<modules>
 		<module>lib</module>
 		<module>extender</module>
-		<module>dirinstaller</module>
 		<module>sampleapp</module>
 		<module>sampleapp2</module>
-		<module>sampleapp3java</module>
 		<module>distribution</module>
 	</modules>
 
@@ -42,6 +40,8 @@
 			</activation>
 			<modules>
 				<module>poms</module>
+                <module>dirinstaller</module>
+                <module>sampleapp3java</module>
 			</modules>
 		</profile>
 		<!--
@@ -67,12 +67,6 @@
 				<artifactId>clojure-contrib</artifactId>
 				<version>1.0-SNAPSHOT</version>
 			</dependency>
-			<!--
-				<dependency> <groupId>org.osgi</groupId> <artifactId>org.osgi.core</artifactId> <version>${osgi.version}</version>
-				<scope>provided</scope> </dependency> <dependency> <groupId>org.osgi</groupId>
-				<artifactId>org.osgi.compendium</artifactId> <version>${osgi.version}</version> <scope>provided</scope>
-				</dependency>
-			-->
 
 			<dependency>
 				<groupId>org.apache.felix</groupId>
@@ -84,8 +78,26 @@
 				<artifactId>org.osgi.compendium</artifactId>
 				<version>1.4.0</version>
 			</dependency>
-
-
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.main</artifactId>
+				<version>2.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.shell</artifactId>
+				<version>1.4.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.shell.tui</artifactId>
+				<version>1.4.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.configadmin</artifactId>
+				<version>1.2.4</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -99,29 +111,14 @@
 				<version>1.4</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ops4j.pax.web</groupId>
-				<artifactId>pax-web-service</artifactId>
-				<version>0.7.0-SNAPSHOT</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>org.apache.felix.configadmin</artifactId>
-				<version>1.2.0</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.ops4j.pax.runner</groupId>
-				<artifactId>pax-runner-assembly</artifactId>
-				<version>1.2.0</version>
-				<classifier>jdk15</classifier>
-				<type>zip</type>
-			</dependency>
-
-			<dependency>
 				<groupId>org.ops4j.pax.logging</groupId>
 				<artifactId>pax-logging-service</artifactId>
 				<version>1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ops4j.pax.web</groupId>
+				<artifactId>pax-web-service</artifactId>
+				<version>0.7.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
