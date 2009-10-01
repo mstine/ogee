@@ -10,9 +10,9 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>lib</module>
-		<module>extender</module>
+		<module>runtime</module>
         <module>confwatcher</module>
+		<module>lib</module>
 		<module>sampleapp</module>
 		<module>sampleapp2</module>
         <module>sampleapp3java</module>

@@ -53,12 +53,12 @@
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-confwatcher</artifactId>
+			<artifactId>ogee-runtime</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-extender</artifactId>
+			<artifactId>ogee-confwatcher</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
