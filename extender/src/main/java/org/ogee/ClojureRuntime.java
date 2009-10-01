@@ -3,6 +3,7 @@ package org.ogee;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Arrays;
 import java.util.jar.JarFile;
 
 import org.osgi.framework.Bundle;
@@ -27,9 +28,16 @@ public class ClojureRuntime {
 		this.context = context;
 		this.initCljs = initCljs;
 		ClassLoader bundle = new BundleClassLoader(context.getBundle());
-		ClassLoader withLib = new URLClassLoader(new URL[] {(URL) context.getBundle().findEntries("ogee-lib", "*.jar", false)
-				.nextElement()}, bundle);
-		classLoader = new URLClassLoader(initCljs, withLib);
+
+		URL[] all = Arrays.copyOf(initCljs, initCljs.length + 1);
+		all[all.length - 1] = (URL) context.getBundle().findEntries("ogee-lib", "*.jar", false).nextElement();
+
+		classLoader = new URLClassLoader(all, bundle);
+
+		System.out.println("#####################");
+		for (URL url : all) {
+			System.out.println(url);
+		}
 	}
 
 	public void init() throws Exception {
