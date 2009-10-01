@@ -53,7 +53,7 @@
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-dirinstaller</artifactId>
+			<artifactId>ogee-confwatcher</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

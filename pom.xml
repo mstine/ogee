@@ -12,8 +12,10 @@
 	<modules>
 		<module>lib</module>
 		<module>extender</module>
+        <module>confwatcher</module>
 		<module>sampleapp</module>
 		<module>sampleapp2</module>
+        <module>sampleapp3java</module>
 		<module>distribution</module>
 	</modules>
 
@@ -40,8 +42,6 @@
 			</activation>
 			<modules>
 				<module>poms</module>
-                <module>dirinstaller</module>
-                <module>sampleapp3java</module>
 			</modules>
 		</profile>
 		<!--

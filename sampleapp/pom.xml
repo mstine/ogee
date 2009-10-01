@@ -29,7 +29,7 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Clojure-Module>ogee.sampleapp.app1</Clojure-Module>
+							<Clojure-Module>ogee.sampleapp.app</Clojure-Module>
 						</manifestEntries>
 					</archive>
 				</configuration>

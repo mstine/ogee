@@ -10,8 +10,8 @@
 		<relativePath>../poms/java</relativePath>
 	</parent>
 
-	<artifactId>ogee-dirinstaller</artifactId>
-	<name>Ogee DirInstaller</name>
+	<artifactId>ogee-confwatcher</artifactId>
+	<name>Ogee ConfWatcher</name>
 
 	<dependencies>
 	</dependencies>
