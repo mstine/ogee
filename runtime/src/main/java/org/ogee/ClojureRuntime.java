@@ -25,9 +25,10 @@ public class ClojureRuntime {
 	public ClojureRuntime(BundleContext context, URL[] initCljs) throws Exception {
 		this.context = context;
 		this.initCljs = initCljs;
-		ClassLoader libs = classLoader = new URLClassLoader(initCljs);
-		ClassLoader bundle = new BundleClassLoader(context.getBundle(), libs);
-		classLoader = new ClojureClassLoader(bundle, libs);
+		ClassLoader bundle = new BundleClassLoader(context.getBundle());
+		ClassLoader libs = classLoader = new URLClassLoader(initCljs, bundle);
+//		classLoader = new ClojureClassLoader(bundle, libs);
+		classLoader = libs;
 	}
 
 	public void init() throws Exception {
@@ -55,7 +56,7 @@ public class ClojureRuntime {
 	}
 
 	public void loadModule(String name) throws Exception {
-		RT.load(name);
+		RT.load(name.replace('.', '/'));
 	}
 
 	public void moduleStarted(Bundle bundle, String mainModule) throws Exception {

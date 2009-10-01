@@ -34,7 +34,6 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-<!--							<Bundle-SymbolicName>ogee.sampleapp2</Bundle-SymbolicName>-->
 							<Clojure-Module>ogee.sampleapp2.app</Clojure-Module>
 						</manifestEntries>
 					</archive>

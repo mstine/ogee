@@ -5,15 +5,12 @@
 					 (org.osgi.util.tracker ServiceTracker)
 					 (org.osgi.framework BundleContext)))
 					 
-(def modules (ref {}))
-
 (defn ogee-start []
-  (logging/info "Ogee started."))
+	(logging/info "Ogee started."))
 
 (defn ogee-stop []
 	"Shutdown the Ogee runtime."
-	(let [allregs (flatten (map deref (map :exported-services (vals @modules))))]
-		(doseq [reg allregs] (.unregister reg))))
+	(logging/info "Stopping Ogee..."))
 
 (defn- inject-bundle-context
 	"Initializes a module. The atom name-ns/name-var will be set to the BundleContext, if present."
@@ -24,13 +21,7 @@
 (defn module-added
 	"Activate the clojure module. name-ns/name-var specify the var where the BundleContext should be injected."
 	[name-ns name-var context]
-	(inject-bundle-context name-ns name-var context)
-	(dosync (alter modules assoc context {:exported-services (ref [])})))
-	
-(defn module-removed
-	"TODO"
-	[context]
-	(dosync (alter modules dissoc context)))
+	(inject-bundle-context name-ns name-var context))
 	
 (defn- map-to-hashtable
 	"Convert a map to a hashtable."
@@ -64,14 +55,5 @@
 (defn smap-export
   "Exports service map 'service' with name 'sname'."
   [context sname service]
-  (let [reference (.registerService context
-                                    (.getName java.util.Map)
-                                    service
-                                    (map-to-hashtable {"ogee.service.name" (str sname)}))]
-    (dosync
-      (let [ref-es (:exported-services (get @modules context))]
-        (alter ref-es conj reference)))))
-
-
-
+  (.registerService context "java.util.Map" service (map-to-hashtable {"ogee.service.name" (str sname)})))
 
