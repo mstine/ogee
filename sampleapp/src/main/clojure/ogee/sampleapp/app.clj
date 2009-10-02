@@ -1,11 +1,9 @@
 (ns ogee.sampleapp.app
 	(:require ogee.osgi))
  
-(def context (atom nil))
- 
-(defn start [_]
-	(println "app1 started")
-  (ogee.osgi/smap-export @context :app1service {:hello #(println "Hello from sample1!")}))
+(defn start []
+	(println "app1 started"))
 
-(defn stop [_]
+(defn stop []
 	(println "app1 stopped"))
+

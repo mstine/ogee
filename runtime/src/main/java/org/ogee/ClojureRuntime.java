@@ -35,7 +35,7 @@ public class ClojureRuntime {
 		setThreadContextClassLoader();
 		logger.info("Starting Ogee...");
 		loadModule("ogee");
-		RT.var("ogee", "ogee-start").invoke();
+		RT.var("ogee", "ogee-start").invoke(context);
 
 		for (URL clj : initCljs) {
 			JarFile jar = new JarFile(new File(clj.toURI()));
@@ -60,12 +60,10 @@ public class ClojureRuntime {
 	}
 
 	public void moduleStarted(Bundle bundle, String mainModule) throws Exception {
-		RT.var("ogee", "module-added").invoke(mainModule, "context", bundle.getBundleContext());
-		RT.var(mainModule, "start").invoke(context);
+		RT.var(mainModule, "start").invoke();
 	}
 
 	public void moduleStopped(Bundle bundle) throws Exception {
-		RT.var("ogee", "module-removed").invoke(bundle.getBundleContext());
 	}
 
 }
