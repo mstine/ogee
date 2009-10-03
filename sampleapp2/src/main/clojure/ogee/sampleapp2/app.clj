@@ -10,7 +10,9 @@
 
 (defroutes my-app
            (GET (url "/start")
-                (website/template (website/root))))
+                (website/root params))
+           (ANY "*"
+                (page-not-found)))
 
 (defn start []
   (println "app2 started")

@@ -1,17 +1,26 @@
 (ns ogee.sampleapp2.website
   (:use compojure))
 
-(defn template [body]
+(defn default-page [title & body]
   (html 
     [:html
-     [:head [:title "Start Page"]]
-     [:body
-      body
+     [:head [:title title]]
+     [:body body
       ]]))
 
-(defn root []
-  (html
+(defn root [params]
+  (default-page
+    "Start Page"
     [:h1 "Hello World"]
-    "bla"
+    (bookmark-form params)
     ))
+
+(defn bookmark-form [params]
+  (form-to
+    [:get "/app2/start"]
+    (label :url   "URL:")   (text-field :url (:url params)) [:br]
+    (label :title "Title:") (text-field :title (:title params)) [:br]
+    (submit-button "Send") [:br]
+    ))
+
 
