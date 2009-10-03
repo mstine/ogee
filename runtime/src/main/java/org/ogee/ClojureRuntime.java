@@ -27,7 +27,7 @@ public class ClojureRuntime {
 		this.initCljs = initCljs;
 		ClassLoader bundle = new BundleClassLoader(context.getBundle());
 		ClassLoader libs = classLoader = new URLClassLoader(initCljs, bundle);
-//		classLoader = new ClojureClassLoader(bundle, libs);
+		// classLoader = new ClojureClassLoader(bundle, libs);
 		classLoader = libs;
 	}
 
@@ -42,8 +42,13 @@ public class ClojureRuntime {
 			String cm = jar.getManifest().getMainAttributes().getValue("Clojure-Module");
 			if (cm == null)
 				continue;
-			loadModule(cm);
-			moduleStarted(context.getBundle(), cm);
+
+			try {
+				loadModule(cm);
+				moduleStarted(context.getBundle(), cm);
+			} catch (Exception e) {
+				logger.error("Error while starting module " + cm, e);
+			}
 		}
 	}
 

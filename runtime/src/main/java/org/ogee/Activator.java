@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Activator implements BundleActivator {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static final String CLJS_DIR = "cljs.dir";
@@ -25,7 +25,7 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext context) throws Exception {
 		this.context = context;
-		
+
 		cljsDir = context.getProperty(CLJS_DIR);
 		cljsDir = cljsDir == null ? "cljs" : cljsDir;
 
@@ -36,7 +36,7 @@ public class Activator implements BundleActivator {
 	}
 
 	public void stop(BundleContext context) throws Exception {
-		this.shutdown  = true;
+		this.shutdown = true;
 		clojureRuntime.destroy();
 	}
 
@@ -65,17 +65,18 @@ public class Activator implements BundleActivator {
 		new Thread() {
 			public void run() {
 				try {
-				while (!Activator.this.shutdown) {
+					while (!Activator.this.shutdown) {
 						Thread.sleep(500);
-					URL[] allCljs = getAllCljs();
-					for (URL url : allCljs) {
-						File f = new File(url.toURI());
-						if (f.lastModified() > started) {
-							Activator.this.shutdown = true;
-							restartOgee();
+						URL[] allCljs = getAllCljs();
+						for (URL url : allCljs) {
+							File f = new File(url.toURI());
+							if (f.lastModified() > started) {
+								Activator.this.shutdown = true;
+								restartOgee();
+								return;
+							}
 						}
 					}
-				}
 				} catch (Exception e) {
 					e.printStackTrace();
 					return;
@@ -83,11 +84,11 @@ public class Activator implements BundleActivator {
 			}
 		}.start();
 	}
-	
+
 	private void restartOgee() {
 		logger.info("Restarting Ogee...");
 		ServiceTracker st = new ServiceTracker(context, PackageAdmin.class.getName(), null);
 		st.open();
-		((PackageAdmin) st.getService()).refreshPackages(new Bundle[] {context.getBundle()});
+		((PackageAdmin) st.getService()).refreshPackages(new Bundle[] { context.getBundle() });
 	}
 }
