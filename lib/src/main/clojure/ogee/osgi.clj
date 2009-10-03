@@ -38,7 +38,7 @@
 (defn- register-managed-service
   [pid]
   (let [ms (proxy [org.osgi.service.cm.ManagedService] []
-             (updated [props] (doseq [handler @(@configuration-handlers pid)] (handler props))))]
+             (updated [props] (doseq [handler (@configuration-handlers pid)] (handler props))))]
     (.registerService
       @bundle-context
       "org.osgi.service.cm.ManagedService"
@@ -51,8 +51,11 @@
     (when 
       (nil? (@managed-services pid))
       (alter managed-services assoc pid (register-managed-service pid)) ; yuck, side effect in tx. need to fix this...
-      (alter configuration-handlers assoc pid (ref []))))
+      ))
   (dosync
-    (alter (@configuration-handlers pid) conj handler)))
+    (alter configuration-handlers update-in [pid] conj handler))) 
+
+
+
 
 
