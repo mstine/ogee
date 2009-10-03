@@ -35,7 +35,7 @@
   [servlet url]
   (.registerService @bundle-context "javax.servlet.Servlet" servlet (ogee.utils/map-to-hashtable {"alias" (str url)})))
 
-(defn register-managed-service
+(defn- register-managed-service
   [pid]
   (let [ms (proxy [org.osgi.service.cm.ManagedService] []
              (updated [props] (doseq [handler @(@configuration-handlers pid)] (handler props))))]

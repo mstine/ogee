@@ -29,6 +29,9 @@
 	<build>
 		<resources>
 			<resource>
+				<directory>src/main/clojure</directory>
+			</resource>
+			<resource>
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>

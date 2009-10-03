@@ -8,19 +8,19 @@
      [:body body
       ]]))
 
-(defn root [params]
-  (default-page
-    "Start Page"
-    [:h1 "Hello World"]
-    (bookmark-form params)
-    ))
-
 (defn bookmark-form [params]
   (form-to
     [:get "/app2/start"]
     (label :url   "URL:")   (text-field :url (:url params)) [:br]
     (label :title "Title:") (text-field :title (:title params)) [:br]
     (submit-button "Send") [:br]
+    ))
+
+(defn root [params]
+  (default-page
+    "Start Page"
+    [:h1 "Hello World"]
+    (bookmark-form params)
     ))
 
 
