@@ -1,4 +1,4 @@
-!http://cloud.github.com/downloads/romanroe/ogee/ogee_banner.png!
+!http://github.com/romanroe/ogee/raw/master/website/ogee_banner.jpg!
 
 h3. "http://www.ogeesource.org":http://www.ogeesource.org
 
