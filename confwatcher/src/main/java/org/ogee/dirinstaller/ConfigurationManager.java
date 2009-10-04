@@ -12,8 +12,12 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.util.tracker.ServiceTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConfigurationManager {
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	final static String ALIAS_KEY = "_alias_factory_pid";
 
@@ -34,7 +38,7 @@ public class ConfigurationManager {
 
 	private void onConfigurationAdminAvailable(ConfigurationAdmin ca) {
 		Queue<String> failed = new ConcurrentLinkedQueue<String>();
-		
+
 		while (!queue.isEmpty()) {
 			String filename = queue.remove();
 			try {
@@ -44,7 +48,7 @@ public class ConfigurationManager {
 				failed.add(filename);
 			}
 		}
-		
+
 		for (String filename : failed) {
 			queue.add(filename);
 		}
@@ -52,13 +56,11 @@ public class ConfigurationManager {
 
 	public void activateConfiguration(String filename) {
 		try {
-			System.out.println("new configuration: " + filename);
 			ConfigurationAdmin cm = (ConfigurationAdmin) tracker.getService();
 			if (cm != null) {
-				System.out.println("Activating configuration");
+				System.out.println();
 				setConfig(cm, filename);
 			} else {
-				System.out.println("ConfigurationAdmin not available. Defer activation.");
 				queue.add(filename);
 			}
 		} catch (Exception e) {
@@ -67,6 +69,8 @@ public class ConfigurationManager {
 	}
 
 	private void setConfig(ConfigurationAdmin ca, String filename) throws Exception {
+		logger.info("Processing configuration: "
+				+ filename.substring(filename.lastIndexOf(File.separatorChar) + 1));
 		File file = new File(filename);
 		Properties p = new Properties();
 		InputStream in = new FileInputStream(file);

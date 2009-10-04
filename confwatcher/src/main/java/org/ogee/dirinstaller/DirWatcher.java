@@ -8,8 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DirWatcher {
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private Thread thread;
 
@@ -55,7 +59,7 @@ public class DirWatcher {
 		File[] files = dir.listFiles();
 		if (files == null) {
 			if (!warningMissingLoadDirPresented) {
-				System.out.println("DirInstaller WARNING: Directory '" + dirName + "' does not exist!");
+				logger.warn("DirInstaller WARNING: Directory '" + dirName + "' does not exist!");
 				warningMissingLoadDirPresented = true;
 			}
 			return;
@@ -90,8 +94,7 @@ public class DirWatcher {
 					configManager.activateConfiguration(string);
 				}
 			} catch (IOException e) {
-				System.out.println("DirInstaller: Problems accessing file " + file.getName());
-				e.printStackTrace();
+				logger.error("DirInstaller: Problems accessing file " + file.getName(), e);
 			}
 		}
 	}

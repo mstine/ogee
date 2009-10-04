@@ -5,19 +5,26 @@
 
 	<groupId>org.ogee</groupId>
 	<artifactId>ogee</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 	<name>Ogee Parent</name>
 	<packaging>pom</packaging>
 
 	<modules>
 		<module>runtime</module>
-        <module>confwatcher</module>
+		<module>confwatcher</module>
 		<module>lib</module>
 		<module>sampleapp</module>
 		<module>sampleapp2</module>
-        <module>sampleapp3java</module>
+		<module>sampleapp3java</module>
 		<module>distribution</module>
 	</modules>
+
+	<distributionManagement>
+		<repository>
+			<id>tuxed-repository</id>
+			<url>scpexe://tuxed.de/var/www/web0/html/mvn</url>
+		</repository>
+	</distributionManagement>
 
 	<scm>
 		<connection>scm:git:git://github.com/romanroe/ogee.git</connection>
@@ -135,6 +142,13 @@
 	</dependencyManagement>
 
 	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh-external</artifactId>
+				<version>1.0-alpha-5</version>
+			</extension>
+		</extensions>
 		<plugins>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
