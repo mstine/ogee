@@ -11,11 +11,9 @@
 
 	<modules>
 		<module>runtime</module>
-		<module>confwatcher</module>
 		<module>lib</module>
-		<module>sampleapp</module>
-		<module>sampleapp2</module>
-		<module>sampleapp3java</module>
+		<module>confwatcher</module>
+		<module>samples</module>
 		<module>distribution</module>
 	</modules>
 

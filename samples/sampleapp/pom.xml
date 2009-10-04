@@ -7,11 +7,11 @@
 		<groupId>org.ogee</groupId>
 		<artifactId>ogee-poms-clojure</artifactId>
 		<version>0.0.4</version>
-		<relativePath>../poms/clojure</relativePath>
+        <relativePath>../../poms/clojure</relativePath>
 	</parent>
 
-	<artifactId>ogee-sampleapp</artifactId>
-	<name>Sample App</name>
+	<artifactId>ogee-samples-sampleapp</artifactId>
+	<name>Ogee Samples - Sample App</name>
 
 	<dependencies>
 		<dependency>

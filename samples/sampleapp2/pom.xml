@@ -10,8 +10,8 @@
 		<relativePath>../poms/clojure</relativePath>
 	</parent>
 
-	<artifactId>ogee-sampleapp2</artifactId>
-	<name>Sample App2</name>
+	<artifactId>ogee-samples-sampleapp2</artifactId>
+	<name>Ogee Samples - Sample App2</name>
 
 	<dependencies>
 		<dependency>
@@ -21,7 +21,7 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-sampleapp</artifactId>
+			<artifactId>ogee-samples-sampleapp</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

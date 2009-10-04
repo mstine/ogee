@@ -73,12 +73,12 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-sampleapp</artifactId>
+			<artifactId>ogee-samples-sampleapp</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-sampleapp2</artifactId>
+			<artifactId>ogee-samples-sampleapp2</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<!--

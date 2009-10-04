@@ -1,9 +1,10 @@
 package org.ogee;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
@@ -41,23 +42,27 @@ public class Activator implements BundleActivator {
 	}
 
 	private URL[] getAllCljs() {
-		File[] allFiles = new File(cljsDir).listFiles(new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				if (name.endsWith(".jar"))
-					return true;
-				else
-					return false;
-			}
-		});
-		URL[] fileUrls = new URL[allFiles.length];
-		for (int i = 0; i < allFiles.length; i++) {
-			try {
-				fileUrls[i] = allFiles[i].toURI().toURL();
-			} catch (MalformedURLException e) {
-				throw new RuntimeException(e);
+		List<URL> found = new ArrayList<URL>();
+		findFiles(found, cljsDir);
+		return found.toArray(new URL[] {});
+	}
+
+	private void findFiles(List<URL> found, String dirName) {
+		File dir = new File(dirName);
+		File[] files = dir.listFiles();
+		for (File f : files) {
+			if (f.isFile()) {
+				if (f.getName().endsWith(".jar")) {
+					try {
+						found.add(f.toURI().toURL());
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+				}
+			} else {
+				findFiles(found, f.getAbsolutePath());
 			}
 		}
-		return fileUrls;
 	}
 
 	private void startDirWatcher() {

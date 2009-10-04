@@ -36,8 +36,8 @@
 			<excludes>
 				<exclude>org.apache.felix:org.apache.felix.main</exclude>
 				<exclude>${project.groupId}:ogee-lib</exclude>
-				<exclude>${project.groupId}:ogee-sampleapp</exclude>
-				<exclude>${project.groupId}:ogee-sampleapp2</exclude>
+				<exclude>${project.groupId}:ogee-samples-sampleapp</exclude>
+				<exclude>${project.groupId}:ogee-samples-sampleapp2</exclude>
 			</excludes>
 			<outputDirectory>bundle</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
@@ -47,8 +47,8 @@
 		<dependencySet>
 			<includes>
 				<include>${project.groupId}:ogee-lib</include>
-				<include>${project.groupId}:ogee-sampleapp</include>
-				<include>${project.groupId}:ogee-sampleapp2</include>
+				<include>${project.groupId}:ogee-samples-sampleapp</include>
+				<include>${project.groupId}:ogee-samples-sampleapp2</include>
 			</includes>
 			<outputDirectory>cljs</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
