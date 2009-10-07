@@ -48,25 +48,27 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
-<!--			<plugin>-->
-<!--				<groupId>com.theoryinpractise</groupId>-->
-<!--				<artifactId>clojure-maven-plugin</artifactId>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<goals>-->
-<!--							<goal>compile</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<sourceDirectories>-->
-<!--								<sourceDirectory>src/main/clojure</sourceDirectory>-->
-<!--							</sourceDirectories>-->
-<!--							<testSourceDirectories>-->
-<!--								<testSourceDirectory>src/test/clojure</testSourceDirectory>-->
-<!--							</testSourceDirectories>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
+            <!--
+			<plugin>
+				<groupId>com.theoryinpractise</groupId>
+				<artifactId>clojure-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<sourceDirectories>
+								<sourceDirectory>src/main/clojure</sourceDirectory>
+							</sourceDirectories>
+							<testSourceDirectories>
+								<testSourceDirectory>src/test/clojure</testSourceDirectory>
+							</testSourceDirectories>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+        -->
 		</plugins>
 	</build>
 </project>

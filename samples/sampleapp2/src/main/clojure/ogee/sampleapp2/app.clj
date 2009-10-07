@@ -16,7 +16,8 @@
 
 (defn start []
   (println "app2 started")
-  (ogee.osgi/register-servlet (servlet my-app) servlet-root))
+  (ogee.osgi/register-servlet (servlet my-app) servlet-root)
+  )
 
 (defn stop []
   (println "app2 stopped"))

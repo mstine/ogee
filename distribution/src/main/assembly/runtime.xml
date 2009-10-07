@@ -49,8 +49,9 @@
 				<include>${project.groupId}:ogee-lib</include>
 				<include>${project.groupId}:ogee-samples-sampleapp</include>
 				<include>${project.groupId}:ogee-samples-sampleapp2</include>
+				<include>com.howardlewisship.cascade:*</include>
 			</includes>
-			<outputDirectory>cljs</outputDirectory>
+			<outputDirectory>cljs/${artifact.groupId}</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
 			<useProjectArtifact>false</useProjectArtifact>
 			<useProjectAttachments>false</useProjectAttachments>

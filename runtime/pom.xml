@@ -32,6 +32,10 @@
 				<configuration>
 					<instructions>
 						<Bundle-Activator>org.ogee.Activator</Bundle-Activator>
+						<Import-Package>
+							sun.misc.*;resolution:=optional,
+							*
+						</Import-Package>
 						<Export-Package>
 							org.ogee.*;version=${project.version},
 							clojure.*;version="1.0.1";-split-package:=merge-first

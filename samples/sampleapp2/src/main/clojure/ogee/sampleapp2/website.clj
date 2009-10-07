@@ -5,7 +5,8 @@
   (html 
     [:html
      [:head [:title title]]
-     [:body body
+     [:body 
+      body
       ]]))
 
 (defn bookmark-form [params]
@@ -22,5 +23,3 @@
     [:h1 "Hello World"]
     (bookmark-form params)
     ))
-
-
