@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>ogee-samples</artifactId>
-    <name>POMs</name>
+    <name>Ogee Samples</name>
 	<packaging>pom</packaging>
 
 	<modules>
