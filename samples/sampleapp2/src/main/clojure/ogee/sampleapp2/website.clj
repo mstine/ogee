@@ -1,11 +1,12 @@
+
 (ns ogee.sampleapp2.website
- (:use compojure))
+  (:use compojure))
 
 (defn default-page [title & body]
-  (html 
+  (html
     [:html
      [:head [:title title]]
-     [:body 
+     [:body
       body
       ]]))
 
