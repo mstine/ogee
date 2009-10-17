@@ -16,84 +16,84 @@ import org.slf4j.LoggerFactory;
 
 public class Activator implements BundleActivator {
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final String CLJS_DIR = "cljs.dir";
+    private ClojureRuntime clojureRuntime;
+    private String cljsDir;
+    private boolean shutdown = false;
+    private BundleContext context;
 
-	private static final String CLJS_DIR = "cljs.dir";
-	private ClojureRuntime clojureRuntime;
-	private String cljsDir;
-	private boolean shutdown = false;
-	private BundleContext context;
+    public void start(BundleContext context) throws Exception {
+        this.context = context;
 
-	public void start(BundleContext context) throws Exception {
-		this.context = context;
+        cljsDir = context.getProperty(CLJS_DIR);
+        cljsDir = cljsDir == null ? "cljs" : cljsDir;
 
-		cljsDir = context.getProperty(CLJS_DIR);
-		cljsDir = cljsDir == null ? "cljs" : cljsDir;
+        clojureRuntime = new ClojureRuntime(context, getAllCljs());
+        clojureRuntime.init();
 
-		clojureRuntime = new ClojureRuntime(context, getAllCljs());
-		clojureRuntime.init();
+        startDirWatcher();
+    }
 
-		startDirWatcher();
-	}
+    public void stop(BundleContext context) throws Exception {
+        this.shutdown = true;
+        clojureRuntime.destroy();
+    }
 
-	public void stop(BundleContext context) throws Exception {
-		this.shutdown = true;
-		clojureRuntime.destroy();
-	}
+    private URL[] getAllCljs() {
+        List<URL> found = new ArrayList<URL>();
+        findFiles(found, cljsDir);
+        return found.toArray(new URL[]{});
+    }
 
-	private URL[] getAllCljs() {
-		List<URL> found = new ArrayList<URL>();
-		findFiles(found, cljsDir);
-		return found.toArray(new URL[] {});
-	}
+    private void findFiles(List<URL> found, String dirName) {
+        File dir = new File(dirName);
+        File[] files = dir.listFiles();
+        for (File f : files) {
+            if (f.isFile()) {
+                if (f.getName().endsWith(".jar")) {
+                    try {
+                        found.add(f.toURI().toURL());
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                findFiles(found, f.getAbsolutePath());
+            }
+        }
+    }
 
-	private void findFiles(List<URL> found, String dirName) {
-		File dir = new File(dirName);
-		File[] files = dir.listFiles();
-		for (File f : files) {
-			if (f.isFile()) {
-				if (f.getName().endsWith(".jar")) {
-					try {
-						found.add(f.toURI().toURL());
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
-					}
-				}
-			} else {
-				findFiles(found, f.getAbsolutePath());
-			}
-		}
-	}
+    private void startDirWatcher() {
+        final long started = System.currentTimeMillis();
+        new Thread() {
 
-	private void startDirWatcher() {
-		final long started = System.currentTimeMillis();
-		new Thread() {
-			public void run() {
-				try {
-					while (!Activator.this.shutdown) {
-						Thread.sleep(500);
-						URL[] allCljs = getAllCljs();
-						for (URL url : allCljs) {
-							File f = new File(url.toURI());
-							if (f.lastModified() > started) {
-								Activator.this.shutdown = true;
-								restartOgee();
-								return;
-							}
-						}
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					return;
-				}
-			}
-		}.start();
-	}
+            public void run() {
+                try {
+                    while (!Activator.this.shutdown) {
+                        Thread.sleep(500);
+                        URL[] allCljs = getAllCljs();
+                        for (URL url : allCljs) {
+                            File f = new File(url.toURI());
+                            if (f.lastModified() > started) {
+                                Activator.this.shutdown = true;
+                                restartOgee();
+                                return;
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return;
+                }
+            }
+        }.start();
+    }
 
-	private void restartOgee() {
-		logger.info("Restarting Ogee...");
-		ServiceTracker st = new ServiceTracker(context, PackageAdmin.class.getName(), null);
-		st.open();
-		((PackageAdmin) st.getService()).refreshPackages(new Bundle[] { context.getBundle() });
-	}
+    private void restartOgee() {
+        logger.info("Restarting Ogee...");
+        ServiceTracker st = new ServiceTracker(context, PackageAdmin.class.getName(), null);
+        st.open();
+        ((PackageAdmin) st.getService()).refreshPackages(new Bundle[]{context.getBundle()});
+    }
 }

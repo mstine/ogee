@@ -2,22 +2,12 @@
  (:use [compojure :only (defroutes GET ANY page-not-found servlet)])
  (:require
    [ogee.sampleapp2.website :as website]
-   ogee.osgi))
+   [ogee.web :as web]))
 
-
-(def servlet-root "/app2")
-(defn url [path] (str servlet-root path))
-
-(defroutes my-app
-  (GET (url "/start")
-    (website/root params))
-  (ANY "*"
-    (page-not-found)))
 
 (defn start []
-  (println "app2 started")
-  (ogee.osgi/register-servlet (servlet my-app) servlet-root)
-  )
+  (web/register-routes website/app-routes "/app2")
+  (println "app2 started"))
 
 (defn stop []
   (println "app2 stopped"))

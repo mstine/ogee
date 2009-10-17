@@ -1,10 +1,10 @@
 (ns ogee.osgi
-  (:require 
-     [clojure.contrib.logging :as logging]
-     ogee.utils)
-  (:import 
-     (org.osgi.util.tracker ServiceTracker)
-     (org.osgi.framework BundleContext)))
+ (:require
+   [clojure.contrib.logging :as logging]
+   ogee.utils)
+ (:import
+   (org.osgi.util.tracker ServiceTracker)
+   (org.osgi.framework BundleContext)))
 
 (def bundle-context (ref nil))
 
@@ -47,15 +47,10 @@
 
 (defn add-configuration-handler
   [pid handler]
-  (dosync 
-    (when 
+  (dosync
+    (when
       (nil? (@managed-services pid))
       (alter managed-services assoc pid (register-managed-service pid)) ; yuck, side effect in tx. need to fix this...
       ))
   (dosync
-    (alter configuration-handlers update-in [pid] conj handler))) 
-
-
-
-
-
+    (alter configuration-handlers update-in [pid] conj handler)))
