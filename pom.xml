@@ -11,7 +11,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>runtime</module>
         <module>lib</module>
         <module>confwatcher</module>
         <module>samples</module>
@@ -48,6 +47,17 @@
             </activation>
             <modules>
                 <module>poms</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>includeRuntime</id>
+            <activation>
+                <property>
+                    <name>!skipRuntime</name>
+                </property>
+            </activation>
+            <modules>
+                <module>runtime</module>
             </modules>
         </profile>
 		<!--
