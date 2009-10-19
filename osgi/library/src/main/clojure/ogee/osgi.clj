@@ -48,6 +48,5 @@
     (alter configuration-handlers update-in [pid] conj handler)))
 
 (defn init [context]
-  (dosync
-    (ref-set bundle-context context)
-    (ref-set ogee.web/register-servlet-method register-servlet)))
+  (dosync (ref-set bundle-context context))
+    (ogee.web/set-servlet-method register-servlet))

@@ -41,7 +41,7 @@ public class Activator implements BundleActivator {
 
         clojureRuntime.loadModule("ogee.osgi");
         RT.var("ogee.osgi", "init").invoke(context);
-        
+
         clojureRuntime.initAllModules();
 
         startDirWatcher();
