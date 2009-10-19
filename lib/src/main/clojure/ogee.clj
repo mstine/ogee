@@ -8,6 +8,7 @@
 
 (defn ogee-start [context]
   (dosync (ref-set ogee.osgi/bundle-context context))
+  (logging/info "Starting Ogee...")
   (logging/info "Starting Telnet server on port 9999")
   (try
     (def *telnet-server* (server-socket/create-repl-server 9999))
