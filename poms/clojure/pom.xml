@@ -28,6 +28,7 @@
 
     <build>
         <sourceDirectory>src/main/clojure</sourceDirectory>
+        <testSourceDirectory>src/test/clojure</testSourceDirectory>
         <resources>
             <resource>
                 <directory>src/main/clojure</directory>
@@ -58,7 +59,7 @@
                     <execution>
                         <goals>
                             <goal>compile</goal>
-                            <goal>test</goal>
+                                <!--<goal>test</goal>-->
                         </goals>
                         <configuration>
                             <sourceDirectories>
@@ -67,10 +68,6 @@
                             <testSourceDirectories>
                                 <testSourceDirectory>src/test/clojure</testSourceDirectory>
                             </testSourceDirectories>
-                            <namespaces>
-                                <namespace>*</namespace>
-                            </namespaces>
-
                         </configuration>
                     </execution>
                 </executions>
