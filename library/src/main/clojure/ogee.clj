@@ -1,6 +1,5 @@
 (ns ogee
  (:require
-   ogee.osgi
    [clojure.contrib.logging :as logging]
    [clojure.contrib.server-socket :as server-socket]))
 

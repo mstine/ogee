@@ -35,7 +35,8 @@
 		<dependencySet>
 			<excludes>
 				<exclude>org.apache.felix:org.apache.felix.main</exclude>
-				<exclude>${project.groupId}:ogee-lib</exclude>
+				<exclude>${project.groupId}:ogee-osgi-lib</exclude>
+                                <exclude>${project.groupId}:ogee-lib</exclude>
 				<exclude>${project.groupId}:ogee-samples-sampleapp</exclude>
 				<exclude>${project.groupId}:ogee-samples-sampleapp2</exclude>
 			</excludes>
@@ -47,9 +48,9 @@
 		<dependencySet>
 			<includes>
 				<include>${project.groupId}:ogee-lib</include>
+                                <include>${project.groupId}:ogee-osgi-lib</include>
 				<include>${project.groupId}:ogee-samples-sampleapp</include>
 				<include>${project.groupId}:ogee-samples-sampleapp2</include>
-				<include>com.howardlewisship.cascade:*</include>
 			</includes>
 			<outputDirectory>cljs/${artifact.groupId}</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>

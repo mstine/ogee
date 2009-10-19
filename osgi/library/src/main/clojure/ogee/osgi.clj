@@ -1,18 +1,15 @@
 (ns ogee.osgi
  (:require
    [clojure.contrib.logging :as logging]
-   ogee.utils)
+   ogee.utils
+   ogee.web)
  (:import
    (org.osgi.util.tracker ServiceTracker)
    (org.osgi.framework BundleContext)))
 
 (def bundle-context (ref nil))
-
 (def managed-services (ref {}))
 (def configuration-handlers (ref {}))
-
-(defn set-bundle-context [context]
-  (dosync (ref-set bundle-context context)))
 
 (defn- service-tracker
   "Create an OSGi ServiceTracker. It will track all services of type clazz + the ldap filter."
@@ -49,3 +46,8 @@
       ))
   (dosync
     (alter configuration-handlers update-in [pid] conj handler)))
+
+(defn init [context]
+  (dosync
+    (ref-set bundle-context context)
+    (ref-set ogee.web/register-servlet-method register-servlet)))

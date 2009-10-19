@@ -7,11 +7,11 @@
 		<groupId>org.ogee</groupId>
 		<artifactId>ogee-poms-java</artifactId>
 		<version>0.0.4</version>
-		<relativePath>../poms/java</relativePath>
+		<relativePath>../../poms/java</relativePath>
 	</parent>
 
-	<artifactId>ogee-confwatcher</artifactId>
-	<name>Ogee ConfWatcher</name>
+	<artifactId>ogee-osgi-confwatcher</artifactId>
+	<name>Ogee OSGi ConfWatcher</name>
 
 	<dependencies>
 	</dependencies>

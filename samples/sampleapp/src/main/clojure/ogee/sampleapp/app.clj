@@ -1,5 +1,7 @@
+
 (ns ogee.sampleapp.app
- (:use [ogee.osgi :as osgi]))
+ (:require
+   [ogee.osgi :as osgi]))
 
 (defn config-callback
   [props]

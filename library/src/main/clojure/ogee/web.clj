@@ -1,14 +1,12 @@
 
 (ns ogee.web
   (:require
-    compojure
-    [ogee.osgi :as osgi]))
+    compojure))
+
+(def register-servlet-method (ref nil))
 
 (defn register-routes
   [routes url]
   (let [decorated (compojure/with-context routes url)
         servlet (compojure/servlet decorated)]
-    (osgi/register-servlet servlet url)))
-
-
-
+    (register-servlet-method servlet url)))
