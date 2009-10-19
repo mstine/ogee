@@ -20,9 +20,12 @@ public class ClojureRuntime {
         this.initCljs = initCljs;
     }
 
-    public void initAllModules() throws Exception {
-//        loadModule("ogee");
+    public void init() throws Exception {
+        loadModule("ogee");
+        RT.var("ogee", "ogee-start").invoke();
+    }
 
+    public void initAllModules() throws Exception {
         for (URL clj : initCljs) {
             JarFile jar = new JarFile(new File(clj.toURI()));
             String cm = jar.getManifest().getMainAttributes().getValue("Clojure-Module");
@@ -54,5 +57,4 @@ public class ClojureRuntime {
     public void moduleStarted(String mainModule) throws Exception {
         RT.var(mainModule, "init").invoke();
     }
-
 }

@@ -37,6 +37,8 @@ public class Activator implements BundleActivator {
         clojureRuntime = new ClojureRuntime(libs, getAllCljs());
         clojureRuntime.setThreadContextClassLoader();
 
+        clojureRuntime.init();
+
         clojureRuntime.loadModule("ogee.osgi");
         RT.var("ogee.osgi", "set-bundle-context").invoke(context);
         
