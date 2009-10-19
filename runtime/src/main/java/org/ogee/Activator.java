@@ -1,8 +1,10 @@
 package org.ogee;
 
+import clojure.lang.RT;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +31,16 @@ public class Activator implements BundleActivator {
         cljsDir = context.getProperty(CLJS_DIR);
         cljsDir = cljsDir == null ? "cljs" : cljsDir;
 
-        clojureRuntime = new ClojureRuntime(context, getAllCljs());
-        clojureRuntime.init();
+        URL[] initCljs = getAllCljs();
+        ClassLoader bundle = new BundleClassLoader(context.getBundle());
+        ClassLoader libs = new URLClassLoader(initCljs, bundle);
+        clojureRuntime = new ClojureRuntime(libs, getAllCljs());
+        clojureRuntime.setThreadContextClassLoader();
+
+        clojureRuntime.loadModule("ogee.osgi");
+        RT.var("ogee.osgi", "set-bundle-context").invoke(context);
+        
+        clojureRuntime.initAllModules();
 
         startDirWatcher();
     }
@@ -68,6 +78,7 @@ public class Activator implements BundleActivator {
         final long started = System.currentTimeMillis();
         new Thread() {
 
+            @Override
             public void run() {
                 try {
                     while (!Activator.this.shutdown) {

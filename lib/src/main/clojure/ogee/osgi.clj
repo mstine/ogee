@@ -11,6 +11,9 @@
 (def managed-services (ref {}))
 (def configuration-handlers (ref {}))
 
+(defn set-bundle-context [context]
+  (dosync (ref-set bundle-context context)))
+
 (defn- service-tracker
   "Create an OSGi ServiceTracker. It will track all services of type clazz + the ldap filter."
   [clazz ldap]
