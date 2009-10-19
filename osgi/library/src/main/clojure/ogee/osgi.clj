@@ -1,7 +1,7 @@
 (ns ogee.osgi
  (:require
    [clojure.contrib.logging :as logging]
-   ogee.utils
+   [clojure.contrib.java-utils :as java-utils]
    ogee.web)
  (:import
    (org.osgi.util.tracker ServiceTracker)
@@ -25,7 +25,7 @@
     @bundle-context
     (.getName javax.servlet.Servlet)
     servlet
-    (ogee.utils/map-to-hashtable {"alias" (str url)})))
+    (java-utils/as-properties {"alias" (str url)})))
 
 (defn- register-managed-service
   [pid]
@@ -35,7 +35,7 @@
       @bundle-context
       "org.osgi.service.cm.ManagedService"
       ms
-      (ogee.utils/map-to-hashtable {"service.pid" pid}))))
+      (java-utils/as-properties {"service.pid" pid}))))
 
 (defn add-configuration-handler
   [pid handler]
