@@ -1,10 +1,14 @@
 
 (ns tests
-  (:require org.ogee.sampleapp.app))
+  (:require 
+    ogee.sampleapp.app)
+  (:use
+    clojure.test))
 
 
-(println "Hello")
-(org.ogee.sampleapp.app/stop 1)
+(deftest simple-test
+  (is (= 1 1))
+  (is (= 2 2)))
 
 
-
+(run-tests)
