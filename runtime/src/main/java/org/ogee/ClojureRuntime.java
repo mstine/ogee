@@ -5,7 +5,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.jar.JarFile;
 
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +29,6 @@ public class ClojureRuntime {
 
     public void init() throws Exception {
         setThreadContextClassLoader();
-        logger.info("Starting Ogee...");
         loadModule("ogee");
         RT.var("ogee", "ogee-start").invoke(context);
 
@@ -43,7 +41,7 @@ public class ClojureRuntime {
 
             try {
                 loadModule(cm);
-                moduleStarted(context.getBundle(), cm);
+                moduleStarted(cm);
             } catch (Exception e) {
                 logger.error("Error while starting module " + cm, e);
             }
@@ -62,10 +60,8 @@ public class ClojureRuntime {
         RT.load(name.replace('.', '/'));
     }
 
-    public void moduleStarted(Bundle bundle, String mainModule) throws Exception {
-        RT.var(mainModule, "start").invoke();
+    public void moduleStarted(String mainModule) throws Exception {
+        RT.var(mainModule, "init").invoke();
     }
 
-    public void moduleStopped(Bundle bundle) throws Exception {
-    }
 }

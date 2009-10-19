@@ -5,10 +5,6 @@
   [props]
   (println "got config:" props))
 
-(defn start []
+(defn init []
   (println "app1 started")
   (osgi/add-configuration-handler "abc" config-callback))
-
-(defn stop []
-  (println "app1 stopped"))
-
