@@ -43,13 +43,9 @@
             <plugin>
                 <groupId>com.theoryinpractise</groupId>
                 <artifactId>clojure-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <configuration>
-                            <testScript>src/test/clojure/tests.clj</testScript>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <testScript>src/test/clojure/tests.clj</testScript>
+                </configuration>
             </plugin>
         </plugins>
     </build>
