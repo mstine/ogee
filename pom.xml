@@ -12,6 +12,7 @@
 
     <modules>
         <module>library</module>
+        <module>osgi</module>
         <module>samples</module>
         <module>distribution</module>
         <module>poms</module>
@@ -38,17 +39,6 @@
     </licenses>
 
     <profiles>
-        <profile>
-            <id>includeOSGi</id>
-            <activation>
-                <property>
-                    <name>!skipOSGi</name>
-                </property>
-            </activation>
-            <modules>
-                <module>osgi</module>
-            </modules>
-        </profile>
 		<!--
 			<profile> <id>newVersion</id> <activation> <property> <name>newVersion</name> </property> </activation> <build>
 			<defaultGoal>validate</defaultGoal> <plugins> <plugin> <groupId>org.codehaus.mojo</groupId>
