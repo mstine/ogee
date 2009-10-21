@@ -36,14 +36,3 @@
        (with-layers current-layers#
          (apply ~f (concat ~(vec initargs) args#)))))
   )
-
-(def *a*)
-(deflayer l1 [*a* 1])
-(defn pi [a b] (println a "and" b ":" *a*))
-(with-layers [l1]
-  (doall (map (partial pi "a") ["b"]))
-  (doall (pmap (impart pi "x") ["y"]))
-  ;(impart pi)
-  )
-
-

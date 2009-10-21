@@ -36,16 +36,10 @@
     (is (= *var1* 11))
     (is (= *var2* 2))))
 
-(deftest method-bind
+(deftest method-impart
   (cop/with-layers [layer1]
-    (let [test-fn #(first (map (fn [_] *var1*) [1]))]
-      (println (test-fn))
-      ;(is (= @(test-fn) 1))
-
-      )))
-
-
-
+    (is (thrown? RuntimeException (first (pmap (fn [_] *var1*) [0]))))
+    (is (= 1 (first (pmap (cop/impart (fn [_] *var1*)) [0]))))))
 
 (run-tests)
 
