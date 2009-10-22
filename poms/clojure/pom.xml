@@ -24,6 +24,11 @@
             <groupId>org.clojure</groupId>
             <artifactId>clojure-contrib</artifactId>
         </dependency>
+        <dependency>
+          <groupId>com.codestuffs.clojure</groupId>
+          <artifactId>swank-clojure</artifactId>
+          <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
