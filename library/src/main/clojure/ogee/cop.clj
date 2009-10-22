@@ -4,7 +4,7 @@
     [clojure.contrib.str-utils :as str-utils]
     [clojure.contrib.logging :as logging]))
 
-(def *active-layers*)
+(def *active-layers* [])
 
 (defmacro deflayer
   [layer-name variations]
@@ -20,7 +20,7 @@
   `(let [merged-name# (str-utils/str-join "->" (map :name ~layers))
          merged-variations# (reduce merge (map :variations ~layers))]
      (push-thread-bindings merged-variations#)
-     (binding [*active-layers* ~layers] ; TODO merge with already active layers
+     (binding [*active-layers* (concat *active-layers* ~layers)]
        (try
          ~@body
          (catch Throwable t#
@@ -31,8 +31,11 @@
 
 (defmacro impart
   [f & initargs]
-  `(let [current-layers# *active-layers*]
+  `(let [current-thread-bindings# (get-thread-bindings)
+         current-layers# *active-layers*]
      (fn [& args#]
-       (with-layers current-layers#
-         (apply ~f (concat ~(vec initargs) args#)))))
-  )
+       (push-thread-bindings current-thread-bindings#)
+       (try
+         (with-layers current-layers#
+           (apply ~f (concat ~(vec initargs) args#)))
+         (finally (pop-thread-bindings))))))
