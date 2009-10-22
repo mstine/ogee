@@ -7,7 +7,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <parent>
         <groupId>org.ogee</groupId>
         <artifactId>ogee-poms-clojure</artifactId>
-        <version>0.0.5</version>
+        <version>0.0.6</version>
         <relativePath>../poms/clojure</relativePath>
     </parent>
 
