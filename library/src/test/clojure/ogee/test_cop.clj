@@ -20,8 +20,8 @@
   (is (map? layer1))
   (is (= (:name layer1) "layer1"))
   (is (map? (:variations layer1)))
-  (is (= ((:variations layer1) #'*var1*) 1))
-  (is (= ((:variations layer1) #'*var2*) 2)))
+  (is (fn? ((:variations layer1) #'*var1*)))
+  (is (fn? ((:variations layer1) #'*var2*))))
 
 (deftest with-single-layer
   (cop/with-layers [layer1]

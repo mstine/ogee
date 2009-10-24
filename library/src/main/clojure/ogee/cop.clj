@@ -14,10 +14,13 @@
   [layers]
   (str-utils/str-join "->" (map :name layers)))
 
-(defn create-merged-variations
-  "Merge all variations in layers."
+(defn create-bindings
+  "Merge the layers and return a map of all variations. The values in
+   the map will be the actual values of the previously specified expression."
   [layers]
-  (reduce merge (map :variations layers)))
+  (let [merged (reduce merge (map :variations layers))
+        applied (mapcat (fn [[k v]] [k (v)]) merged)]
+    (apply hash-map applied)))
 
 (defmacro deflayer
   "Create the layer layer-name. This macro defines a var with the same name.
@@ -26,7 +29,7 @@
   [layer-name variations]
   (let [layer-name-str (str layer-name)
         grouped (mapcat
-                  (fn [p] [`(var ~(first p)) (second p)])
+                  (fn [p] [`(var ~(first p)) `(fn [] ~(second p))])
                   (partition 2 variations))]
     `(def ~layer-name {:name ~layer-name-str
                        :variations (hash-map ~@grouped)})))
@@ -36,7 +39,10 @@
    of the active layers is limited to body."
   [layers & body]
   `(let [merged-name# (create-merged-name (concat *active-layers* ~layers))
-         merged-variations# (create-merged-variations ~layers)]
+         merged-variations# (create-bindings ~layers)]
+
+    ; (println "B" merged-variations#)
+
      (binding [*active-layers* (concat *active-layers* ~layers)]
        (push-thread-bindings merged-variations#)
        (try
