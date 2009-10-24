@@ -40,9 +40,6 @@
   [layers & body]
   `(let [merged-name# (create-merged-name (concat *active-layers* ~layers))
          merged-variations# (create-bindings ~layers)]
-
-    ; (println "B" merged-variations#)
-
      (binding [*active-layers* (concat *active-layers* ~layers)]
        (push-thread-bindings merged-variations#)
        (try
