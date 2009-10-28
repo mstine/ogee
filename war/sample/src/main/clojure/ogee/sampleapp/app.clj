@@ -1,3 +1,0 @@
-
-(ns ogee.sampleapp.app)
-
