@@ -14,9 +14,9 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>sampleapp</module>
 		<module>sampleapp2</module>
 	</modules>
 
 </project>
+
 
