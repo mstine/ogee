@@ -77,17 +77,11 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-standalone-samples-sampleapp</artifactId>
+			<artifactId>ogee-standalone-sample</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-standalone-samples-sampleapp2</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+
 		<!--
-			<dependency> <groupId>${project.groupId}</groupId> <artifactId>ogee-sampleapp3java</artifactId>
-			<version>${project.version}</version> </dependency>
 		<dependency>
 			<groupId>com.howardlewisship.cascade</groupId>
 			<artifactId>core</artifactId>

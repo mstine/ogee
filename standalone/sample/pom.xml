@@ -8,11 +8,11 @@
         <groupId>org.ogee</groupId>
         <artifactId>ogee-poms-clojure</artifactId>
         <version>0.0.6</version>
-        <relativePath>../../../poms/clojure</relativePath>
+        <relativePath>../../poms/clojure</relativePath>
     </parent>
 
-    <artifactId>ogee-standalone-samples-sampleapp2</artifactId>
-    <name>Ogee Standalone Samples - Sample App2</name>
+    <artifactId>ogee-standalone-sample</artifactId>
+    <name>Ogee Standalone Sample</name>
 
     <dependencies>
         <dependency>
@@ -23,11 +23,6 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ogee-standalone-lib</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>ogee-standalone-samples-sampleapp</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

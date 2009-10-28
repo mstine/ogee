@@ -18,7 +18,7 @@
         <module>runtime</module>
         <module>library</module>
         <module>confwatcher</module>
-	<module>samples</module>
+	<module>sample</module>
 	<module>distribution</module>
     </modules>
 
