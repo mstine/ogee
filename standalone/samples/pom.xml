@@ -5,12 +5,12 @@
 
 	<parent>
 		<groupId>org.ogee</groupId>
-		<artifactId>ogee</artifactId>
+		<artifactId>ogee-standalone-parent</artifactId>
 		<version>0.0.6</version>
 	</parent>
 
-	<artifactId>ogee-samples</artifactId>
-    <name>Ogee Samples</name>
+	<artifactId>ogee-standalone-samples</artifactId>
+    <name>Ogee Standalone Samples</name>
 	<packaging>pom</packaging>
 
 	<modules>

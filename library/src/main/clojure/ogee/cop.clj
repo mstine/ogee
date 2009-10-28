@@ -16,7 +16,8 @@
 
 (defn create-bindings
   "Merge the layers and return a map of all variations. The values in
-   the map will be the actual values of the previously specified expression."
+   the map will be the actual values of the expressions specified when
+   the layer was created."
   [layers]
   (let [merged (reduce merge (map :variations layers))
         applied (mapcat (fn [[k v]] [k (v)]) merged)]

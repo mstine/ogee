@@ -11,8 +11,8 @@
         <relativePath>../../poms/clojure</relativePath>
     </parent>
 
-    <artifactId>ogee-samples-sampleapp</artifactId>
-    <name>Ogee Samples - Sample App</name>
+    <artifactId>ogee-war-sample</artifactId>
+    <name>Ogee WAR Sample</name>
 
     <dependencies>
         <dependency>
@@ -20,26 +20,11 @@
             <artifactId>ogee-lib</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>ogee-osgi-lib</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
+	<!--
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Clojure-Module>ogee.sampleapp.app</Clojure-Module>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>com.theoryinpractise</groupId>
                 <artifactId>clojure-maven-plugin</artifactId>
@@ -48,6 +33,7 @@
                 </configuration>
             </plugin>
         </plugins>
+	-->
     </build>
 
 </project>

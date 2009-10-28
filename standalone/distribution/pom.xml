@@ -6,12 +6,12 @@
 
 	<parent>
 		<groupId>org.ogee</groupId>
-		<artifactId>ogee</artifactId>
+		<artifactId>ogee-standalone-parent</artifactId>
 		<version>0.0.6</version>
 	</parent>
 
-	<artifactId>ogee-distribution</artifactId>
-	<name>Distribution</name>
+	<artifactId>ogee-standalone-distribution</artifactId>
+	<name>Ogee Standalone Distribution</name>
 	<packaging>pom</packaging>
 
 	<dependencies>
@@ -57,17 +57,17 @@
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-osgi-runtime</artifactId>
+			<artifactId>ogee-standalone-runtime</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-osgi-confwatcher</artifactId>
+			<artifactId>ogee-standalone-confwatcher</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-osgi-lib</artifactId>
+			<artifactId>ogee-standalone-lib</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -77,12 +77,12 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-samples-sampleapp</artifactId>
+			<artifactId>ogee-standalone-samples-sampleapp</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>ogee-samples-sampleapp2</artifactId>
+			<artifactId>ogee-standalone-samples-sampleapp2</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<!--
@@ -124,7 +124,7 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<descriptors>
-						<descriptor>src/main/assembly/runtime.xml</descriptor>
+						<descriptor>src/main/assembly/standalone.xml</descriptor>
 					</descriptors>
 				</configuration>
 				<executions>

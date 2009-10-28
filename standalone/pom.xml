@@ -10,14 +10,16 @@
         <version>0.0.6</version>
     </parent>
 
-    <artifactId>ogee-osgi-parent</artifactId>
-    <name>Ogee OSGi Parent</name>
+    <artifactId>ogee-standalone-parent</artifactId>
+    <name>Ogee Standalone Parent</name>
     <packaging>pom</packaging>
 
     <modules>
         <module>runtime</module>
         <module>library</module>
         <module>confwatcher</module>
+	<module>samples</module>
+	<module>distribution</module>
     </modules>
 
 </project>

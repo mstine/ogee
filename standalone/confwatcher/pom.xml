@@ -10,8 +10,8 @@
 		<relativePath>../../poms/java</relativePath>
 	</parent>
 
-	<artifactId>ogee-osgi-confwatcher</artifactId>
-	<name>Ogee OSGi ConfWatcher</name>
+	<artifactId>ogee-standalone-confwatcher</artifactId>
+	<name>Ogee Standalone OSGi ConfWatcher</name>
 
 	<dependencies>
 	</dependencies>

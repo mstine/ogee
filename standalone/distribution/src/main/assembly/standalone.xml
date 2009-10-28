@@ -9,14 +9,14 @@
 			<excludes>
 				<exclude>start.sh</exclude>
 			</excludes>
-			<directory>src/main/resources</directory>
+			<directory>src/main/resources/standalone</directory>
 			<outputDirectory></outputDirectory>
 		</fileSet>
 		<fileSet>
 			<includes>
 				<include>start.sh</include>
 			</includes>
-			<directory>src/main/resources</directory>
+			<directory>src/main/resources/standalone</directory>
 			<outputDirectory></outputDirectory>
 			<fileMode>0764</fileMode>
 		</fileSet>
@@ -35,10 +35,10 @@
 		<dependencySet>
 			<excludes>
 				<exclude>org.apache.felix:org.apache.felix.main</exclude>
-				<exclude>${project.groupId}:ogee-osgi-lib</exclude>
                                 <exclude>${project.groupId}:ogee-lib</exclude>
-				<exclude>${project.groupId}:ogee-samples-sampleapp</exclude>
-				<exclude>${project.groupId}:ogee-samples-sampleapp2</exclude>
+				<exclude>${project.groupId}:ogee-standalone-lib</exclude>
+				<exclude>${project.groupId}:ogee-standalone-samples-sampleapp</exclude>
+				<exclude>${project.groupId}:ogee-standalone-samples-sampleapp2</exclude>
 			</excludes>
 			<outputDirectory>bundle</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
@@ -48,9 +48,9 @@
 		<dependencySet>
 			<includes>
 				<include>${project.groupId}:ogee-lib</include>
-                                <include>${project.groupId}:ogee-osgi-lib</include>
-				<include>${project.groupId}:ogee-samples-sampleapp</include>
-				<include>${project.groupId}:ogee-samples-sampleapp2</include>
+                                <include>${project.groupId}:ogee-standalone-lib</include>
+				<include>${project.groupId}:ogee-standalone-samples-sampleapp</include>
+				<include>${project.groupId}:ogee-standalone-samples-sampleapp2</include>
 			</includes>
 			<outputDirectory>cljs/${artifact.groupId}</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>

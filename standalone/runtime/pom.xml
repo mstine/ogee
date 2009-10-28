@@ -11,8 +11,8 @@
         <relativePath>../../poms/java</relativePath>
     </parent>
 
-    <artifactId>ogee-osgi-runtime</artifactId>
-    <name>Ogee OSGi Runtime</name>
+    <artifactId>ogee-standalone-runtime</artifactId>
+    <name>Ogee Standalone OSGi Runtime</name>
 
     <dependencies>
         <dependency>

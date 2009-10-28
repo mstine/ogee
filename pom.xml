@@ -11,11 +11,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>library</module>
-        <module>osgi</module>
-        <module>samples</module>
-        <module>distribution</module>
         <module>poms</module>
+        <module>library</module>
+        <module>war</module>
+        <module>standalone</module>
     </modules>
 
     <distributionManagement>

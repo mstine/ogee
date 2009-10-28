@@ -11,8 +11,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <relativePath>../../poms/clojure</relativePath>
     </parent>
 
-    <artifactId>ogee-osgi-lib</artifactId>
-    <name>Ogee OSGi Library</name>
+    <artifactId>ogee-standalone-lib</artifactId>
+    <name>Ogee Standalone OSGi Library</name>
 
     <dependencies>
         <dependency>

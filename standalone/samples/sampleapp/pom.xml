@@ -8,11 +8,11 @@
         <groupId>org.ogee</groupId>
         <artifactId>ogee-poms-clojure</artifactId>
         <version>0.0.6</version>
-        <relativePath>../poms/clojure</relativePath>
+        <relativePath>../../../poms/clojure</relativePath>
     </parent>
 
-    <artifactId>ogee-samples-sampleapp2</artifactId>
-    <name>Ogee Samples - Sample App2</name>
+    <artifactId>ogee-standalone-samples-sampleapp</artifactId>
+    <name>Ogee Standalone Samples - Sample App</name>
 
     <dependencies>
         <dependency>
@@ -22,29 +22,12 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>ogee-osgi-lib</artifactId>
+            <artifactId>ogee-standalone-lib</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>ogee-samples-sampleapp</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>compojure</groupId>
-            <artifactId>compojure</artifactId>
         </dependency>
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/clojure</directory>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -52,9 +35,16 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Clojure-Module>ogee.sampleapp2.app</Clojure-Module>
+                            <Clojure-Module>ogee.sampleapp.app</Clojure-Module>
                         </manifestEntries>
                     </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.theoryinpractise</groupId>
+                <artifactId>clojure-maven-plugin</artifactId>
+                <configuration>
+                    <testScript>src/test/clojure/tests.clj</testScript>
                 </configuration>
             </plugin>
         </plugins>
