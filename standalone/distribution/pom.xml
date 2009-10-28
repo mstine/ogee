@@ -81,13 +81,10 @@
 			<version>${project.version}</version>
 		</dependency>
 
-		<!--
 		<dependency>
 			<groupId>com.howardlewisship.cascade</groupId>
 			<artifactId>core</artifactId>
 		</dependency>
-		-->
-
 	</dependencies>
 
 	<profiles>

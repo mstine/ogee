@@ -38,6 +38,7 @@
                                 <exclude>${project.groupId}:ogee-lib</exclude>
 				<exclude>${project.groupId}:ogee-standalone-lib</exclude>
 				<exclude>${project.groupId}:ogee-standalone-sample</exclude>
+				<exclude>com.howardlewisship.cascade:*</exclude>
 			</excludes>
 			<outputDirectory>bundle</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
@@ -49,6 +50,7 @@
 				<include>${project.groupId}:ogee-lib</include>
                                 <include>${project.groupId}:ogee-standalone-lib</include>
 				<include>${project.groupId}:ogee-standalone-sample</include>
+				<include>com.howardlewisship.cascade:*</include>
 			</includes>
 			<outputDirectory>cljs/${artifact.groupId}</outputDirectory>
 			<useTransitiveDependencies>false</useTransitiveDependencies>
